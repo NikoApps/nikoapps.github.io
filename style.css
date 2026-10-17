@@ -1,0 +1,58 @@
+/* Niko website. Colours from the Niko design system; every text pairing meets WCAG AAA (7:1). */
+:root {
+  --bg: #FBF8FF;
+  --surface: #FFFFFF;
+  --text: #232838;
+  --muted: #4B4F63;
+  --accent: #F7B9DE;
+  --on-accent: #232838;
+  --link: #5E3596;
+  --outline: #4B4F63;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1A1E2B;
+    --surface: #232838;
+    --text: #FBF8FF;
+    --muted: #D9D4EA;
+    --link: #F7B9DE;
+    --outline: #D9D4EA;
+  }
+}
+* { box-sizing: border-box; }
+html { font-size: 125%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, "Noto Sans", Roboto, sans-serif;
+  line-height: 1.5;
+}
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 16px; top: 16px; background: var(--accent); color: var(--on-accent); padding: 12px 16px; }
+.hero, main, footer { max-width: 44rem; margin: 0 auto; padding: 0 16px; }
+.hero { text-align: center; padding-top: 3rem; padding-bottom: 1.5rem; }
+.hero img { width: 160px; height: 160px; }
+h1 { font-size: 3rem; margin: 0.5rem 0 0; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; margin: 2.5rem 0 1rem; }
+h3 { font-size: 1.2rem; margin: 0; }
+.lead { font-size: 1.3rem; font-weight: 600; margin: 0.5rem 0 1rem; }
+p { margin: 0.5rem 0; }
+a { color: var(--link); text-underline-offset: 3px; }
+a:focus-visible, .button:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+.apps, .promise { list-style: none; padding: 0; margin: 0; }
+.apps li {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--surface); border-radius: 16px; padding: 16px; margin-bottom: 12px;
+}
+.apps img { flex: none; width: 72px; height: 72px; border-radius: 18px; }
+.status { color: var(--muted); font-size: 0.9rem; }
+.promise li { padding: 10px 0; }
+.button {
+  display: inline-block; min-height: 64px; padding: 18px 28px;
+  background: var(--accent); color: var(--on-accent);
+  border-radius: 16px; font-weight: 700; text-decoration: none;
+}
+footer { padding-top: 2rem; padding-bottom: 3rem; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

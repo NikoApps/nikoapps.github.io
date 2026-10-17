@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="t"><title id="t">Niko Day Clock</title><defs><linearGradient id="g" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E3D8FF"/><stop offset="1" stop-color="#C9B8FF"/></linearGradient></defs><rect width="512" height="512" rx="128" fill="url(#g)"/><g fill="#232838" stroke="#232838" stroke-width="26" stroke-linejoin="round">
+<path d="M166 214 Q170 150 190 112 Q222 140 246 166 Z"/><path d="M346 214 Q342 150 322 112 Q290 140 266 166 Z"/>
+<path d="M256 160 C330 160 352 190 356 250 C360 310 362 356 340 384 C320 408 290 410 256 410 C222 410 192 408 172 384 C150 356 152 310 156 250 C160 190 182 160 256 160 Z"/></g>
+<g fill="#E3D8FF"><path d="M192 146 Q186 172 186 192 L216 178 Z"/><path d="M320 146 Q326 172 326 192 L296 178 Z"/></g>
+<g fill="none" stroke="#E3D8FF" stroke-width="22" stroke-linecap="round"><path d="M190 250 Q218 214 246 250"/><path d="M266 250 Q294 214 322 250"/></g>
+<path d="M234 284 Q245 298 256 284 Q267 298 278 284" fill="none" stroke="#E3D8FF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+<g stroke="#232838" stroke-width="10" stroke-linecap="round"><path d="M150 262 L108 254 M150 282 L106 286 M362 262 L404 254 M362 282 L406 286"/></g>
+<g fill="none" stroke="#E3D8FF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"><path d="M220 374 H292 M236 374 A20 20 0 0 1 276 374 M256 326 V336 M230 340 L236 346 M282 340 L276 346"/></g></svg>
