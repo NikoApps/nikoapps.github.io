@@ -2,6 +2,80 @@
 
 The Niko website, served by GitHub Pages at https://nikoapps.github.io.
 
-Plain HTML and CSS, no build step. Colours and assets come from the Niko design system. Every text pairing meets WCAG AAA contrast.
+Built with [Astro](https://astro.build) as a static site with no client JavaScript. Colours and assets come from the Niko design system. Every text pairing meets WCAG AAA contrast.
 
 This site also backs the `io.github.nikoapps.*` package IDs used by Niko apps, so keep it published.
+
+## Run it
+
+Needs Node 24 and pnpm.
+
+```sh
+pnpm install   # install dependencies
+pnpm dev       # local server at http://localhost:4321
+pnpm build     # build the site into dist/
+pnpm preview   # serve the built site
+pnpm check     # type-check pages and content
+```
+
+Every push to `main` builds the site and deploys it to GitHub Pages through `.github/workflows/deploy.yml`.
+
+## Layout
+
+- `src/styles/global.css`: all styling, plain CSS.
+- `src/layouts/BaseLayout.astro`: head, skip link and footer shared by every page.
+- `src/pages/index.astro`: the home page. The app list comes from the apps collection.
+- `src/pages/[app]/index.astro`: the template for app detail pages.
+- `src/content/apps/`: one file per app. The schema is in `src/content.config.ts`.
+- `public/`: files copied as is, such as the favicon and app icons.
+
+## Add an app
+
+Add the icon to `public/assets/icons/<name>.svg`, then create `src/content/apps/<name>.md` (or `.mdx`). The file name becomes the URL, so `torch.mdx` is served at `/torch/`.
+
+A planned app only shows on the home page and needs this:
+
+```md
+---
+name: Niko Torch
+order: 8
+status: planned
+icon: torch
+summary: One line about what it does.
+---
+```
+
+When the app has a release, set `status` to `test` or `released` and fill in the detail page fields. Use `.mdx` so the body can use sections. Copy `clock.mdx` as a starting point:
+
+```mdx
+---
+name: Niko Torch
+order: 8
+status: test
+icon: torch
+summary: One line for the home page.
+tagline: Short line under the name.
+intro: A paragraph on who it is for and what it does.
+description: Text for search results.
+ogDescription: Shorter text for link previews. Optional, defaults to description.
+version: 0.1.0
+minAndroid: "8.0"
+download: https://github.com/NikoApps/Torch/releases/latest
+source: https://github.com/NikoApps/Torch
+---
+
+<Section id="features" title="What it does">
+
+- **Feature.** What it does.
+
+</Section>
+
+<Section id="install" title="Install">
+
+1. First step.
+2. Second step.
+
+</Section>
+```
+
+The page header, download button and the "More" links (source, issues, releases) come from the frontmatter. In the body, bulleted lists show as feature cards and numbered lists as install steps. The build fails if a released app is missing a required field.
