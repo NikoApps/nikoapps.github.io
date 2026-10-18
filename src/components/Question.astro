@@ -1,0 +1,14 @@
+---
+// One question in a FAQ list. The answer stays folded until it is opened, so
+// pages can stay short. Works without JavaScript.
+// <Question q="Does it need the internet?"> ... </Question>
+interface Props {
+  q: string;
+}
+
+const { q } = Astro.props;
+---
+<details class="question">
+  <summary>{q}</summary>
+  <div class="answer"><slot /></div>
+</details>

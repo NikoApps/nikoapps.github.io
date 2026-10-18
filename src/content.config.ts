@@ -27,6 +27,9 @@ const apps = defineCollection({
       minAndroid: z.string().optional(),
       download: z.url().optional(),
       source: z.url().optional(),
+      // Set to true only if the app has the internet permission. Shown in the
+      // quick facts on the detail page.
+      internet: z.boolean().default(false),
     })
     .refine(
       (app) =>

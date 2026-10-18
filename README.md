@@ -23,9 +23,11 @@ Every push to `main` builds the site and deploys it to GitHub Pages through `.gi
 ## Layout
 
 - `src/styles/global.css`: all styling, plain CSS.
-- `src/layouts/BaseLayout.astro`: head, skip link and footer shared by every page.
-- `src/pages/index.astro`: the home page. The app list comes from the apps collection.
+- `src/layouts/BaseLayout.astro`: head, skip link, top bar and footer shared by every page.
+- `src/pages/index.astro`: the home page. Apps you can try and planned apps come from the apps collection.
 - `src/pages/[app]/index.astro`: the template for app detail pages.
+- `src/pages/install.astro`, `privacy.astro`, `accessibility.astro`, `about.astro`: pages about Niko as a whole. App-specific details live on each app's page, and these pages link to them.
+- `src/components/Question.astro`: a folded question and answer, used for the FAQ on every page.
 - `src/content/apps/`: one file per app. The schema is in `src/content.config.ts`.
 - `public/`: files copied as is, such as the favicon and app icons.
 
@@ -76,6 +78,18 @@ source: https://github.com/NikoApps/Torch
 2. Second step.
 
 </Section>
+
+<Section id="questions" title="Questions">
+
+<Question q="Does it need the internet?">
+
+No.
+
+</Question>
+
+</Section>
 ```
 
-The page header, download button and the "More" links (source, issues, releases) come from the frontmatter. In the body, bulleted lists show as feature cards and numbered lists as install steps. The build fails if a released app is missing a required field.
+Each app page should have `privacy` and `accessibility` sections, since the privacy and accessibility pages link to `/<app>/#privacy` and `/<app>/#accessibility`. Keep each section to a line or two and put the detail in `<Question>` blocks.
+
+The page header, download button, quick facts and the "More" links (source, issues, releases) come from the frontmatter. In the body, bulleted lists show as feature cards and numbered lists as install steps. The build fails if a released app is missing a required field.

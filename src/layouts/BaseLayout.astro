@@ -1,18 +1,23 @@
 ---
-// Shared page shell: head, skip link and footer. Each page fills in its own
-// header and main content through the default slot.
+// Shared page shell: head, skip link, top bar and footer. Each page fills in
+// its own header and main content through the default slot.
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description: string;
   ogDescription?: string;
-  // Show the "All Niko apps" link in the footer (app detail pages).
-  backLink?: boolean;
 }
 
-const { title, description, ogDescription = description, backLink = false } = Astro.props;
+const { title, description, ogDescription = description } = Astro.props;
 const ogImage = new URL('/assets/icon-192.png', Astro.site).href;
+const path = Astro.url.pathname;
+
+const nav = [
+  { href: '/#apps', label: 'Apps' },
+  { href: '/install/', label: 'Install' },
+  { href: '/about/', label: 'About' },
+];
 ---
 <!doctype html>
 <html lang="en">
@@ -29,9 +34,29 @@ const ogImage = new URL('/assets/icon-192.png', Astro.site).href;
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+    <a class="brand" href="/"><img src="/assets/niko-mark.svg" alt="" width="40" height="40">Niko</a>
+    <nav aria-label="Main">
+      <ul>
+        {nav.map((item) => (
+          <li><a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
   <slot />
   <footer>
-    <p>{backLink && <><a href="/">All Niko apps</a> · </>}<a href="/privacy/">Privacy</a> · <a href="/accessibility/">Accessibility</a> · Contact: <a href="mailto:hello@gopalkhadka.com.np">hello@gopalkhadka.com.np</a></p>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="/">All apps</a></li>
+        <li><a href="/install/">Install help</a></li>
+        <li><a href="/privacy/">Privacy</a></li>
+        <li><a href="/accessibility/">Accessibility</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="https://github.com/NikoApps">GitHub</a></li>
+      </ul>
+    </nav>
+    <p>Free Android apps, made in Nepal. Contact: <a href="mailto:hello@gopalkhadka.com.np">hello@gopalkhadka.com.np</a></p>
   </footer>
 </body>
 </html>

@@ -1,9 +1,10 @@
 ---
-// Detail page template for every app that has a release. The hero and the
-// "More" links come from frontmatter; the sections in between are the MDX body.
+// Detail page template for every app that has a release. The hero, quick facts
+// and "More" links come from frontmatter; the sections in between are the MDX body.
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Section from '../../components/Section.astro';
+import Question from '../../components/Question.astro';
 import FeatureList from '../../components/FeatureList.astro';
 import StepList from '../../components/StepList.astro';
 import { getApps, hasPage, type App } from '../../lib/apps';
@@ -18,30 +19,37 @@ interface Props {
 }
 
 const { app } = Astro.props;
-const { name, icon, tagline, intro, description, ogDescription, version, minAndroid, download, source, status } = app.data;
+const { name, icon, tagline, intro, description, ogDescription, version, minAndroid, download, source, status, internet } = app.data;
 const { Content } = await render(app);
-const statusText = status === 'test' ? `Version ${version}, test release.` : `Version ${version}.`;
+
+const facts = [
+  'Free, no ads',
+  internet ? 'Uses the internet' : 'Works offline, no internet permission',
+  `Android ${minAndroid} or newer`,
+  status === 'test' ? `Version ${version}, test release` : `Version ${version}`,
+];
 ---
-<BaseLayout title={name} description={description!} ogDescription={ogDescription} backLink>
-  <nav class="crumb"><a href="/">Niko</a> / {name}</nav>
+<BaseLayout title={name} description={description!} ogDescription={ogDescription}>
   <header class="hero">
     <img class="app-icon" src={`/assets/icons/${icon}.svg`} alt="" width="128" height="128">
     <h1>{name}</h1>
     <p class="lead">{tagline}</p>
     <p>{intro}</p>
     <p><a class="button" href={download}>Download for Android</a></p>
-    <p class="status">{statusText} Android {minAndroid} or newer.</p>
+    <ul class="facts">
+      {facts.map((fact) => <li>{fact}</li>)}
+    </ul>
   </header>
 
   <main id="main">
-    <Content components={{ Section, ul: FeatureList, ol: StepList }} />
+    <Content components={{ Section, Question, ul: FeatureList, ol: StepList }} />
 
     <section aria-labelledby="more">
       <h2 id="more">More</h2>
       <ul class="links">
-        <li><a href={source}>Source code</a> (GPLv3)</li>
-        <li><a href={`${source}/issues`}>Report a problem or ask a question</a></li>
         <li><a href={`${source}/releases`}>All releases and what changed</a></li>
+        <li><a href={`${source}/issues`}>Report a problem or ask a question</a></li>
+        <li><a href={source}>Source code</a> (GPLv3)</li>
       </ul>
     </section>
   </main>

@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getApps, hasPage, statusLabel } from '../lib/apps';
 
 const apps = await getApps();
+const available = apps.filter(hasPage);
+const planned = apps.filter((app) => !hasPage(app));
 ---
 <BaseLayout
   title="Niko"
@@ -12,53 +14,54 @@ const apps = await getApps();
     <img src="/assets/niko-mark.svg" alt="" width="160" height="160">
     <h1>Niko</h1>
     <p class="lead">Simple, free Android apps that anyone can use.</p>
-    <p>For people mainstream apps leave out: people who can't read, older people, and disabled people. Each app does one job. No ads, no tracking, no paywalls. They work offline and are accessible from the start.</p>
+    <p>For people who can't read, older people and disabled people. Each app does one job, speaks out loud and works offline.</p>
   </header>
 
   <main id="main">
     <section aria-labelledby="apps">
-      <h2 id="apps">Apps</h2>
+      <h2 id="apps">Apps you can try</h2>
       <ul class="apps">
-        {apps.map((app) => {
-          const page = `/${app.id}/`;
-          return (
-            <li>
-              <img src={`/assets/icons/${app.data.icon}.svg`} alt="" width="72" height="72" />
-              <div>
-                <h3>{hasPage(app) ? <a href={page}>{app.data.name}</a> : app.data.name}</h3>
-                <p>{app.data.summary}</p>
-                <p class="status">
-                  {statusLabel[app.data.status]}
-                  {hasPage(app) && <> · <a href={page}>Details</a> · <a href={app.data.download}>Download</a></>}
-                </p>
-              </div>
-            </li>
-          );
-        })}
+        {available.map((app) => (
+          <li class="app-card">
+            <img src={`/assets/icons/${app.data.icon}.svg`} alt="" width="96" height="96" />
+            <div>
+              <h3><a href={`/${app.id}/`}>{app.data.name}</a></h3>
+              <p>{app.data.summary}</p>
+              <p class="status">{statusLabel[app.data.status]}, version {app.data.version}</p>
+              <p class="actions">
+                <a class="button" href={app.data.download}>Download</a>
+                <a class="button secondary" href={`/${app.id}/`}>Learn more</a>
+              </p>
+            </div>
+          </li>
+        ))}
       </ul>
-      <p>Apps are released on GitHub first. Install the APK directly, or add the repo to <a href="https://github.com/ImranR98/Obtainium">Obtainium</a> to get updates.</p>
+      <p>New to installing apps from outside the Play Store? <a href="/install/">See how to install</a>.</p>
+    </section>
+
+    <section aria-labelledby="coming">
+      <h2 id="coming">Coming later</h2>
+      <ul class="apps compact">
+        {planned.map((app) => (
+          <li>
+            <img src={`/assets/icons/${app.data.icon}.svg`} alt="" width="56" height="56" />
+            <div>
+              <h3>{app.data.name}</h3>
+              <p>{app.data.summary}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
     </section>
 
     <section aria-labelledby="promise">
-      <h2 id="promise">Our promise</h2>
+      <h2 id="promise">Every Niko app</h2>
       <ul class="promise">
-        <li><strong>Free forever.</strong> No ads, no paid features.</li>
-        <li><strong>Private.</strong> No tracking. No internet permission unless an app truly needs it.</li>
-        <li><strong>Usable without reading.</strong> Apps speak in the phone's own voice and language.</li>
-        <li><strong>Built to last.</strong> Designed to keep working through battery savers and Android updates.</li>
-        <li><strong>Open source.</strong> Every app is published under GPLv3 when it is released.</li>
+        <li><strong>Is free.</strong> No ads, no paid features.</li>
+        <li><strong>Keeps your data on the phone.</strong> No tracking, no accounts. <a href="/privacy/">Privacy</a></li>
+        <li><strong>Can be used without reading.</strong> It speaks in the phone's own voice and language. <a href="/accessibility/">Accessibility</a></li>
+        <li><strong>Is open source.</strong> Published under GPLv3 when it is released. <a href="/about/">About Niko</a></li>
       </ul>
-    </section>
-
-    <section aria-labelledby="made">
-      <h2 id="made">How Niko is made</h2>
-      <p>Niko is a one-person side project, made in Nepal. Much of the code is written with AI assistance, then reviewed and tested on real phones. Every message is read, and replies usually come within a week.</p>
-    </section>
-
-    <section aria-labelledby="help">
-      <h2 id="help">Help out</h2>
-      <p>Test an app with someone who would use it, or help translate it into your language.</p>
-      <p><a class="button" href="https://github.com/NikoApps">Niko on GitHub</a></p>
     </section>
   </main>
 </BaseLayout>

@@ -1,55 +1,70 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Question from '../components/Question.astro';
+import { getApps, hasPage, statusLabel } from '../lib/apps';
+
+const apps = (await getApps()).filter(hasPage);
 ---
 <BaseLayout
   title="Accessibility · Niko"
-  description="How Niko apps are built and tested for accessibility, what is known not to work yet, and how to report a problem."
+  description="How Niko apps are built and tested for accessibility, and how to report a problem."
 >
-  <nav class="crumb"><a href="/">Niko</a> / Accessibility</nav>
   <header class="hero">
     <h1>Accessibility</h1>
-    <p class="lead">Niko apps are made for people mainstream apps leave out. This page says what we do, what we have tested, and what we haven't yet.</p>
+    <p class="lead">Niko apps are made for people mainstream apps leave out.</p>
   </header>
 
   <main id="main">
     <section aria-labelledby="built">
-      <h2 id="built">How the apps are built</h2>
+      <h2 id="built">How we build</h2>
       <ul class="promise">
-        <li><strong>Spoken.</strong> Apps speak in the phone's own voice, in the person's language, so they can be used without reading.</li>
-        <li><strong>Labelled.</strong> Every button and setting has a label for TalkBack.</li>
-        <li><strong>Large.</strong> Touch targets are at least 64dp, main buttons at least 96dp. Text follows the phone's font size and is designed to work at 200%.</li>
-        <li><strong>High contrast.</strong> Colours are chosen for a 7:1 contrast ratio in light and dark themes.</li>
-        <li><strong>Calm.</strong> The main screen never scrolls or rearranges, so people can learn where things are.</li>
-        <li><strong>Checked on every build.</strong> Android's accessibility checks run on every build and stop it if they fail.</li>
+        <li><strong>Spoken.</strong> Apps speak in the phone's own voice and language, so they can be used without reading.</li>
+        <li><strong>Labelled.</strong> Every button and setting has a TalkBack label.</li>
+        <li><strong>Large.</strong> Big touch targets, and text that follows the phone's font size up to 200%.</li>
+        <li><strong>High contrast.</strong> 7:1 contrast in light and dark themes.</li>
+        <li><strong>Calm.</strong> The main screen never scrolls or moves around.</li>
       </ul>
     </section>
 
     <section aria-labelledby="tested">
-      <h2 id="tested">What has been tested</h2>
-      <p><strong>Niko Clock 0.3.0</strong> is a test release. It has been tried by hand on a Xiaomi phone and checked on the Android emulator. It has not yet had:</p>
+      <h2 id="tested">How we test</h2>
+      <p>Android's accessibility checks run on every build. Before an app reaches version 1.0 it also gets a full TalkBack pass, checks at 200% font size, an Accessibility Scanner pass, a native speaker review of each language, and everyday use by the people it is made for.</p>
+      <p>Each app's page says how far it has got:</p>
       <ul class="links">
-        <li>a full TalkBack pass of every screen, including setup and the PIN screens</li>
-        <li>checks at 200% font size on every screen and widget size</li>
-        <li>an Accessibility Scanner pass</li>
-        <li>testing with people who can't read, blind people or older people using it every day</li>
-        <li>a native speaker review of the Hindi, Spanish and Portuguese phrases</li>
+        {apps.map((app) => (
+          <li><a href={`/${app.id}/#accessibility`}>{app.data.name}</a>: {statusLabel[app.data.status].toLowerCase()}, version {app.data.version}</li>
+        ))}
       </ul>
-      <p>These come before version 1.0. We don't claim conformance with any standard until it has been tested.</p>
     </section>
 
-    <section aria-labelledby="known">
-      <h2 id="known">Known problems</h2>
-      <ul class="links">
-        <li>The settings gear, back arrow and backspace show only an icon. Each has a TalkBack label.</li>
-        <li>On the smallest widget size with very large text, the date can be cut short.</li>
-        <li>Some phones stop apps in the background to save battery. The app warns about this and shows how to fix it, but can't always detect the phone maker's own settings.</li>
-      </ul>
+    <section aria-labelledby="faq">
+      <h2 id="faq">Questions</h2>
+
+      <Question q="Can someone who can't read use Niko apps?">
+        <p>Yes, that is who they are made for. The main action of each app is spoken out loud, and a helper can do the setup.</p>
+      </Question>
+
+      <Question q="Do they work with TalkBack?">
+        <p>Every button and setting has a label. A full TalkBack pass of every screen happens before version 1.0, and the app's page says if it hasn't happened yet.</p>
+      </Question>
+
+      <Question q="Which languages do they speak?">
+        <p>It differs by app. Each app's page lists the languages it speaks and the languages its screens are in. If the phone has no voice for a language, the app says so instead of speaking another one.</p>
+      </Question>
+
+      <Question q="Do Niko apps meet WCAG or another standard?">
+        <p>We don't claim conformance with any standard until an app has been fully tested. This website meets WCAG AAA contrast.</p>
+      </Question>
+
+      <Question q="Can I help test?">
+        <p>Yes, especially with someone who would use the app every day. See <a href="/about/#help">how to help</a>.</p>
+      </Question>
     </section>
 
     <section aria-labelledby="report">
       <h2 id="report">Tell us what doesn't work</h2>
-      <p>If something is hard to use, we want to know. Email <a href="mailto:hello@gopalkhadka.com.np">hello@gopalkhadka.com.np</a> or <a href="https://github.com/NikoApps/Clock/issues">open an issue on GitHub</a>. A voice message or a few words is enough.</p>
-      <p>Niko is a one-person side project. Every message is read, and replies usually come within a week. Last updated 18 October 2026.</p>
+      <p>If something is hard to use, we want to know. Email <a href="mailto:hello@gopalkhadka.com.np">hello@gopalkhadka.com.np</a> or open an issue on the app's GitHub page. A voice message or a few words is enough.</p>
+      <p class="status">Last updated 18 October 2026.</p>
     </section>
   </main>
 </BaseLayout>

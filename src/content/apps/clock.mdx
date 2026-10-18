@@ -20,9 +20,9 @@ source: https://github.com/NikoApps/Clock
 - **Shake to hear it.** Works with the screen off and the phone locked. Shake again for the date.
 - **Chimes.** Says the time by itself every hour, half hour or quarter hour, with its own volume.
 - **Quiet at night.** No chimes during quiet hours or Do Not Disturb. Asking still works.
-- **Tiles and widgets.** Hear the time or the date from quick settings, or from a time, date, or time and date widget.
+- **Tiles and widgets.** Hear the time or the date from quick settings, or from a home screen widget.
 - **Speaks like a person.** "It's quarter to four in the afternoon", not "fifteen forty-five".
-- **Set up by a helper.** A short setup on first open, with language, speed, pitch, text size and chimes behind an optional PIN.
+- **Set up by a helper.** A short setup on first open. Settings can be locked with a PIN.
 - **Keeps speaking.** Warns when a phone setting may stop it, and shows when it last spoke by itself.
 
 </Section>
@@ -33,8 +33,6 @@ source: https://github.com/NikoApps/Clock
 
 **Screen:** English, नेपाली, हिन्दी, বাংলা, اردو, العربية, Español, Português, Français, Bahasa Indonesia.
 
-It uses the phone's own voice, so it works offline. If a voice is missing, it says so instead of speaking another language.
-
 </Section>
 
 <Section id="install" title="Install">
@@ -43,20 +41,88 @@ It uses the phone's own voice, so it works offline. If a voice is missing, it sa
 2. Open the file. If the phone asks, allow installing apps from this source.
 3. Open Niko Clock and tap the time to hear it.
 
-To get updates automatically, add `https://github.com/NikoApps/Clock` to [Obtainium](https://github.com/ImranR98/Obtainium).
-
-On Xiaomi, Oppo, Vivo, Samsung and similar phones, set Niko Clock's battery use to "No restrictions" so chimes and shake keep working.
+For automatic updates and keeping it running on Xiaomi, Samsung and similar phones, see [install help](/install/).
 
 </Section>
 
 <Section id="privacy" title="Privacy">
 
-Niko Clock has no internet permission. It collects nothing, shows no ads and has no account. Settings stay on the phone. More on the [privacy page](/privacy/).
+No internet permission, nothing collected, no ads, no account. [How Niko handles privacy](/privacy/).
+
+<Question q="What does it keep on the phone?">
+
+Its settings: voice language, speed and pitch, chime times, quiet hours, shake settings, text size, the time it last spoke, and a short note if a helper writes one. A helper PIN is kept only as a one-way hash, never as the numbers themselves.
+
+</Question>
+
+<Question q="What is each permission for?">
+
+- **Alarms:** to say the time on the minute.
+- **Run at startup:** to start chimes and shake again after the phone restarts.
+- **Foreground service and keep awake:** to listen for a shake and to finish speaking with the screen off.
+- **Notifications:** to show that shake listening is on, as Android requires.
+- **Vibrate:** for the optional buzz before speaking.
+
+It has no permission for the internet, location, contacts, microphone, camera, storage or phone calls.
+
+</Question>
+
+<Question q="Does the voice send anything anywhere?">
+
+Niko Clock doesn't. The voice comes from the phone's own text-to-speech engine, such as Speech Services by Google. Niko Clock only gives it the sentence to say. What the engine does is covered by its maker's privacy policy.
+
+</Question>
 
 </Section>
 
-<Section id="made" title="How it's made">
+<Section id="accessibility" title="Accessibility">
 
-Niko Clock is built by one person as a side project. Much of the code is written with AI assistance, then reviewed and tested on real phones. What has and hasn't been tested is on the [accessibility page](/accessibility/).
+Version 0.3.0 has been tried by hand on a Xiaomi phone and on the Android emulator. Full testing comes before version 1.0. [How Niko apps are built and tested](/accessibility/).
+
+<Question q="What hasn't been tested yet?">
+
+- A full TalkBack pass of every screen, including setup and the PIN screens.
+- 200% font size on every screen and widget size.
+- An Accessibility Scanner pass.
+- Everyday use by people who can't read, blind people and older people.
+- A native speaker review of the Hindi, Spanish and Portuguese phrases.
+
+</Question>
+
+<Question q="Are there known problems?">
+
+- The settings gear, back arrow and backspace show only an icon. Each has a TalkBack label.
+- On the smallest widget size with very large text, the date can be cut short.
+- Some phones stop apps in the background to save battery. The app warns about this, but can't always detect the phone maker's own settings.
+
+</Question>
+
+</Section>
+
+<Section id="questions" title="Questions">
+
+<Question q="It stopped saying the time by itself. What do I do?">
+
+The phone is most likely stopping it to save battery. Set Niko Clock's battery use to "No restrictions" or "Unrestricted". [Step by step for each phone](/install/#battery).
+
+</Question>
+
+<Question q="It says a voice is missing.">
+
+The phone has no voice installed for that language. Install or update Speech Services by Google from the Play Store, then add the language in the phone's text-to-speech settings. Niko Clock won't speak another language instead.
+
+</Question>
+
+<Question q="Can it stay quiet at night?">
+
+Yes. Set quiet hours in settings. Chimes also stop during Do Not Disturb. Tapping or shaking still says the time.
+
+</Question>
+
+<Question q="Does it need the internet?">
+
+No. It has no internet permission and works fully offline.
+
+</Question>
 
 </Section>

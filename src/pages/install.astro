@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Question from '../components/Question.astro';
+---
+<BaseLayout
+  title="Install help · Niko"
+  description="How to install Niko apps from GitHub, get updates with Obtainium, and keep them running on phones that stop apps to save battery."
+>
+  <header class="hero">
+    <h1>Install help</h1>
+    <p class="lead">Niko apps come from GitHub for now, not the Play Store. Installing takes a few minutes.</p>
+  </header>
+
+  <main id="main">
+    <section aria-labelledby="steps">
+      <h2 id="steps">Install an app</h2>
+      <ol class="steps">
+        <li>On the phone, open the app's page on this site and tap <strong>Download</strong>. This downloads an APK file.</li>
+        <li>Open the downloaded file. If the phone asks, allow your browser or file app to install apps.</li>
+        <li>Tap <strong>Install</strong>, then <strong>Open</strong>.</li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="updates">
+      <h2 id="updates">Get updates</h2>
+      <p>Apps installed this way don't update by themselves. The easiest way is <a href="https://github.com/ImranR98/Obtainium">Obtainium</a>, a free app that checks GitHub for new versions.</p>
+      <ol class="steps">
+        <li>Install Obtainium from its GitHub page.</li>
+        <li>Tap <strong>Add app</strong> and paste the app's source link, such as <code>https://github.com/NikoApps/Clock</code>.</li>
+        <li>Obtainium will tell you when an update is ready.</li>
+      </ol>
+      <p>Or download the newest APK from the app's page and install it over the old one. Settings are kept.</p>
+    </section>
+
+    <section aria-labelledby="battery">
+      <h2 id="battery">Keep it running</h2>
+      <p>Many phones, especially Xiaomi, Oppo, Vivo, Realme, OnePlus and Samsung, stop apps in the background to save battery. Apps that speak by themselves, like Niko Clock's chimes, then go quiet.</p>
+      <ol class="steps">
+        <li>Open the phone's <strong>Settings</strong>, then <strong>Apps</strong>, and find the Niko app.</li>
+        <li>Open <strong>Battery</strong> or <strong>Battery saver</strong>.</li>
+        <li>Choose <strong>No restrictions</strong> or <strong>Unrestricted</strong>.</li>
+      </ol>
+      <p>The names differ between phones. <a href="https://dontkillmyapp.com">Don't kill my app</a> has steps for each phone maker.</p>
+    </section>
+
+    <section aria-labelledby="faq">
+      <h2 id="faq">Questions</h2>
+
+      <Question q="Is it safe to install apps from outside the Play Store?">
+        <p>Install only from the links on this site, which go to the app's official GitHub releases. The source code for each app is public, so anyone can check what it does.</p>
+      </Question>
+
+      <Question q="Why aren't Niko apps on the Play Store?">
+        <p>Google Play and F-Droid are planned, but not soon. Until then, GitHub is the only place to get them.</p>
+      </Question>
+
+      <Question q="The phone warns that the app could be harmful.">
+        <p>Android and Play Protect can show this for apps that don't come from the Play Store. If you downloaded the file from a link on this site, you can continue.</p>
+      </Question>
+
+      <Question q="Which phones work?">
+        <p>Android phones. Each app page says the oldest Android version it supports. Niko apps don't work on iPhone.</p>
+      </Question>
+
+      <Question q="How do I remove an app?">
+        <p>Press and hold the app's icon, then choose <strong>Uninstall</strong>. Its settings are removed from the phone.</p>
+      </Question>
+
+      <Question q="I'm setting this up for someone else.">
+        <p>Install it on their phone, go through the short setup, and set the battery setting above. Some apps let you lock settings with a PIN so they don't get changed by accident.</p>
+      </Question>
+    </section>
+  </main>
+</BaseLayout>
