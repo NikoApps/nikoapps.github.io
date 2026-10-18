@@ -10,7 +10,7 @@ const { href, secondary = false } = Astro.props;
 <a
   href={href}
   class:list={[
-    'inline-flex min-h-16 items-center rounded-2xl border-2 px-7 font-bold no-underline',
+    'inline-flex min-h-16 items-center justify-center rounded-2xl border-2 px-7 font-bold no-underline',
     secondary ? 'border-outline text-link' : 'border-accent bg-accent text-on-accent',
   ]}
 ><slot /></a>

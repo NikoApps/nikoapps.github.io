@@ -59,10 +59,10 @@ The brand gradient is for the logo and app icons only, never behind text.
 
 ### Layout and touch
 
-- One column, `max-w-176` (44rem), 16px side padding.
+- One column, `max-w-176` (44rem), 16px side padding. Phones first: check every page at 360px wide with no sideways scrolling. Cards stack and buttons fill the row below the `sm` breakpoint.
 - Buttons are at least 64px tall. Links in the top bar and footer have padding so the tap area is at least 48px.
 - No hover-only or JavaScript-only behaviour. Folded questions use `<details>`.
-- The only JavaScript is the theme switcher, inline in `BaseLayout`. The button stays hidden without JavaScript and the site follows the system theme.
+- The only JavaScript is the theme switcher, inline in `BaseLayout`. The button stays hidden without JavaScript and the site follows the system theme. It shows a moon or sun with a word, and only the icon on phones, the one icon-only control on the site. Its accessible name is always "Switch to dark theme" or "Switch to light theme".
 
 ## Components
 
