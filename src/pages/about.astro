@@ -1,61 +1,53 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import Points from '../components/Points.astro';
 import Question from '../components/Question.astro';
 ---
 <BaseLayout
   title="About · Niko"
   description="Niko is a one-person side project from Nepal making simple, free Android apps for people mainstream apps leave out."
 >
-  <header class="hero">
-    <h1>About Niko</h1>
-    <p class="lead">Simple apps for people mainstream apps leave out.</p>
-  </header>
+  <Hero slot="header" title="About Niko" lead="Simple apps for people mainstream apps leave out." />
 
-  <main id="main">
-    <section aria-labelledby="why">
-      <h2 id="why">Why Niko</h2>
-      <p>Most apps assume you can read, see the screen clearly and find your way through menus. Many people can't: people who never learned to read, older people, and people with low vision or other disabilities.</p>
-      <p>Each Niko app does one everyday job, like telling the time or calling family, in a way they can use without help. It speaks out loud, works offline, and a family member or helper can set it up once.</p>
-    </section>
+  <Section id="why" title="Why Niko">
+    <p>Most apps assume you can read, see the screen clearly and find your way through menus. Many people can't: people who never learned to read, older people, and people with low vision or other disabilities.</p>
+    <p>Each Niko app does one everyday job, like telling the time or calling family, in a way they can use without help. It speaks out loud, works offline, and a family member or helper can set it up once.</p>
+  </Section>
 
-    <section aria-labelledby="made">
-      <h2 id="made">Who makes it</h2>
-      <p>Niko is a one-person side project, made in Nepal. Much of the code is written with AI assistance, then reviewed and tested on real phones.</p>
-      <p>Every app is free and published under GPLv3 when it is released. <a href="https://github.com/NikoApps">Niko on GitHub</a></p>
-    </section>
+  <Section id="made" title="Who makes it">
+    <p>Niko is a one-person side project, made in Nepal. Much of the code is written with AI assistance, then reviewed and tested on real phones.</p>
+    <p>Every app is free and published under GPLv3 when it is released. <a href="https://github.com/NikoApps">Niko on GitHub</a></p>
+  </Section>
 
-    <section aria-labelledby="help">
-      <h2 id="help">Help out</h2>
-      <ul class="promise">
-        <li><strong>Test an app</strong> with someone who would use it, and tell us what was hard.</li>
-        <li><strong>Translate</strong> an app or check its spoken phrases in your language.</li>
-        <li><strong>Report a problem</strong> on the app's GitHub page or by email.</li>
-      </ul>
-    </section>
+  <Section id="help" title="Help out">
+    <Points>
+      <li><strong>Test an app</strong> with someone who would use it, and tell us what was hard.</li>
+      <li><strong>Translate</strong> an app or check its spoken phrases in your language.</li>
+      <li><strong>Report a problem</strong> on the app's GitHub page or by email.</li>
+    </Points>
+  </Section>
 
-    <section aria-labelledby="faq">
-      <h2 id="faq">Questions</h2>
+  <Section id="faq" title="Questions">
+    <Question q="How is Niko paid for?">
+      <p>It isn't. There are no ads, paid features or investors. It is a side project.</p>
+    </Question>
 
-      <Question q="How is Niko paid for?">
-        <p>It isn't. There are no ads, paid features or investors. It is a side project.</p>
-      </Question>
+    <Question q="Will the apps stay free?">
+      <p>Yes. No ads and no paid features, ever.</p>
+    </Question>
 
-      <Question q="Will the apps stay free?">
-        <p>Yes. No ads and no paid features, ever.</p>
-      </Question>
+    <Question q="Can I suggest an app?">
+      <p>Yes. Email with who it is for and the one job it should do.</p>
+    </Question>
 
-      <Question q="Can I suggest an app?">
-        <p>Yes. Email with who it is for and the one job it should do.</p>
-      </Question>
+    <Question q="How quickly do you reply?">
+      <p>Every message is read. Replies usually come within a week.</p>
+    </Question>
+  </Section>
 
-      <Question q="How quickly do you reply?">
-        <p>Every message is read. Replies usually come within a week.</p>
-      </Question>
-    </section>
-
-    <section aria-labelledby="contact">
-      <h2 id="contact">Contact</h2>
-      <p><a href="mailto:hello@gopalkhadka.com.np">hello@gopalkhadka.com.np</a></p>
-    </section>
-  </main>
+  <Section id="contact" title="Contact">
+    <p><a href="mailto:hello@gopalkhadka.com.np">hello@gopalkhadka.com.np</a></p>
+  </Section>
 </BaseLayout>

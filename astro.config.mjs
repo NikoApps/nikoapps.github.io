@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://nikoapps.github.io',
@@ -8,4 +9,5 @@ export default defineConfig({
   trailingSlash: 'always',
   // Keep quotes and apostrophes exactly as written.
   integrations: [mdx({ smartypants: false })],
+  vite: { plugins: [tailwindcss()] },
 });

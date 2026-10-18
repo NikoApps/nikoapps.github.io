@@ -1,4 +1,4 @@
 ---
-// Numbered lists in app MDX files render as install steps.
+// Numbered steps. Numbered lists in app MDX files render with this too.
 ---
-<ol class="steps" {...Astro.props}><slot /></ol>
+<ol class="list-decimal pl-6 [&>li]:py-1.5" {...Astro.props}><slot /></ol>

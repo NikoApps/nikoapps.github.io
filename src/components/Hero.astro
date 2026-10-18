@@ -1,0 +1,16 @@
+---
+// Page header: an optional image, the title and a lead line, then anything
+// else in the default slot. Use it as <Hero slot="header" ...> in BaseLayout.
+interface Props {
+  title: string;
+  lead: string;
+}
+
+const { title, lead } = Astro.props;
+---
+<header class="mx-auto max-w-176 px-4 pt-12 pb-6 text-center">
+  <slot name="image" />
+  <h1 class="mt-2 text-5xl font-bold tracking-tight">{title}</h1>
+  <p class="mt-2 mb-4 text-xl font-semibold">{lead}</p>
+  <slot />
+</header>

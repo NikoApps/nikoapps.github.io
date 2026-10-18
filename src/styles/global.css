@@ -1,107 +1,38 @@
-/* Niko website. Colours from the Niko design system; every text pairing meets WCAG AAA (7:1). */
-:root {
-  --bg: #FBF8FF;
-  --surface: #FFFFFF;
-  --text: #232838;
-  --muted: #4B4F63;
-  --accent: #F7B9DE;
-  --on-accent: #232838;
-  --link: #5E3596;
-  --outline: #4B4F63;
-  color-scheme: light dark;
+@import "tailwindcss";
+
+/* Niko design system colours. Every text pairing meets WCAG AAA (7:1). */
+@theme {
+  --color-bg: #FBF8FF;
+  --color-surface: #FFFFFF;
+  --color-ink: #232838;
+  --color-muted: #4B4F63;
+  --color-accent: #F7B9DE;
+  --color-on-accent: #232838;
+  --color-link: #5E3596;
+  --color-outline: #4B4F63;
+  --font-sans: system-ui, "Noto Sans", Roboto, sans-serif;
+  /* 18px at the 125% root size, the smallest text on the site. */
+  --text-sm: 0.9rem;
+  --text-sm--line-height: 1.4;
 }
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1A1E2B;
-    --surface: #232838;
-    --text: #FBF8FF;
-    --muted: #D9D4EA;
-    --link: #F7B9DE;
-    --outline: #D9D4EA;
+    --color-bg: #1A1E2B;
+    --color-surface: #232838;
+    --color-ink: #FBF8FF;
+    --color-muted: #D9D4EA;
+    --color-link: #F7B9DE;
+    --color-outline: #D9D4EA;
   }
 }
-* { box-sizing: border-box; }
-html { font-size: 125%; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, "Noto Sans", Roboto, sans-serif;
-  line-height: 1.5;
-}
-.skip { position: absolute; left: -999px; }
-.skip:focus { left: 16px; top: 16px; background: var(--accent); color: var(--on-accent); padding: 12px 16px; }
-.hero, main, footer { max-width: 44rem; margin: 0 auto; padding: 0 16px; }
-.hero { text-align: center; padding-top: 3rem; padding-bottom: 1.5rem; }
-.hero img { width: 160px; height: 160px; }
-h1 { font-size: 3rem; margin: 0.5rem 0 0; letter-spacing: -0.01em; }
-h2 { font-size: 1.6rem; margin: 2.5rem 0 1rem; }
-h3 { font-size: 1.2rem; margin: 0; }
-.lead { font-size: 1.3rem; font-weight: 600; margin: 0.5rem 0 1rem; }
-p { margin: 0.5rem 0; }
-a { color: var(--link); text-underline-offset: 3px; }
-a:focus-visible, .button:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
-.apps, .promise { list-style: none; padding: 0; margin: 0; }
-.apps li {
-  display: flex; gap: 16px; align-items: flex-start;
-  background: var(--surface); border-radius: 16px; padding: 16px; margin-bottom: 12px;
-}
-.apps img { flex: none; width: 72px; height: 72px; border-radius: 18px; }
-.status { color: var(--muted); font-size: 0.9rem; }
-.promise li { padding: 10px 0; }
-.button {
-  display: inline-block; min-height: 64px; padding: 18px 28px;
-  background: var(--accent); color: var(--on-accent);
-  border: 2px solid var(--accent);
-  border-radius: 16px; font-weight: 700; text-decoration: none;
-}
-.button.secondary { background: transparent; color: var(--link); border-color: var(--outline); }
-.center { text-align: center; }
-footer { padding-top: 2rem; padding-bottom: 3rem; color: var(--muted); }
-footer ul { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 4px 20px; }
-footer li a { display: inline-block; padding: 8px 0; }
 
-/* Top bar on every page */
-.topbar {
-  max-width: 44rem; margin: 0 auto; padding: 12px 16px 0;
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px;
+/* Markdown in app pages can't carry classes, so plain elements get defaults here. */
+@layer base {
+  html { @apply scheme-light-dark text-[125%]; }
+  body { @apply bg-bg font-sans leading-normal text-ink; }
+  p { @apply my-2; }
+  a { @apply text-link underline underline-offset-3; }
+  code { @apply text-[0.85em] wrap-anywhere; }
+  :focus-visible { @apply outline-3 outline-offset-3 outline-ink; }
 }
-.brand {
-  display: inline-flex; align-items: center; gap: 10px; min-height: 48px;
-  color: var(--text); font-weight: 700; font-size: 1.2rem; text-decoration: none;
-}
-.topbar ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 4px; }
-.topbar li a { display: inline-block; padding: 10px 12px; min-height: 48px; border-radius: 12px; }
-.topbar a[aria-current="page"] { font-weight: 700; text-decoration-thickness: 3px; }
-
-/* Home page */
-.app-card img { width: 96px; height: 96px; border-radius: 24px; }
-.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-.apps.compact img { width: 56px; height: 56px; border-radius: 14px; }
-.apps.compact li { padding: 12px 16px; margin-bottom: 8px; }
-
-/* Folded questions and answers */
-.question { background: var(--surface); border-radius: 16px; margin-bottom: 10px; }
-.question summary {
-  cursor: pointer; padding: 16px; min-height: 64px; border-radius: 16px;
-  font-weight: 700; list-style-position: inside;
-}
-.question summary:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
-.question .answer { padding: 0 16px 16px; }
-.question .features li { background: none; border-radius: 0; padding: 4px 0; margin: 0; }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
-
-/* App detail pages */
-.hero .app-icon { width: 128px; height: 128px; border-radius: 32px; }
-.features, .links { list-style: none; padding: 0; margin: 0; }
-.features li { background: var(--surface); border-radius: 16px; padding: 14px 16px; margin-bottom: 10px; }
-.links li { padding: 8px 0; }
-.steps { padding-left: 1.4rem; }
-.steps li { padding: 6px 0; }
-.facts {
-  list-style: none; padding: 0; margin: 1rem 0 0;
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
-}
-.facts li { background: var(--surface); border-radius: 999px; padding: 6px 14px; font-size: 0.85rem; color: var(--muted); }
-code { font-size: 0.85em; overflow-wrap: anywhere; }
-.apps h3 a { color: var(--text); }

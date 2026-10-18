@@ -8,7 +8,8 @@ interface Props {
 
 const { q } = Astro.props;
 ---
-<details class="question">
-  <summary>{q}</summary>
-  <div class="answer"><slot /></div>
+<details class="mb-2.5 rounded-2xl bg-surface">
+  <summary class="min-h-16 cursor-pointer rounded-2xl p-4 font-bold">{q}</summary>
+  {/* Lists in an answer are plain, not feature cards. */}
+  <div class="px-4 pb-4 [&_ul>li]:m-0! [&_ul>li]:bg-transparent! [&_ul>li]:px-0! [&_ul>li]:py-1!"><slot /></div>
 </details>

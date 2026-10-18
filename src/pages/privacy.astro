@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import Points from '../components/Points.astro';
 import Question from '../components/Question.astro';
 import { getApps, hasPage } from '../lib/apps';
 
@@ -9,72 +12,62 @@ const apps = (await getApps()).filter(hasPage);
   title="Privacy · Niko"
   description="Niko apps collect nothing. No internet permission, no accounts, no ads, no tracking."
 >
-  <header class="hero">
-    <h1>Privacy</h1>
-    <p class="lead">Niko apps collect nothing about you.</p>
-  </header>
+  <Hero slot="header" title="Privacy" lead="Niko apps collect nothing about you." />
 
-  <main id="main">
-    <section aria-labelledby="promise">
-      <h2 id="promise">Our promise</h2>
-      <ul class="promise">
-        <li><strong>No internet.</strong> Niko apps don't have the internet permission, so they can't send anything anywhere.</li>
-        <li><strong>Nothing collected.</strong> No personal data, no usage data, no crash reports, no analytics.</li>
-        <li><strong>No accounts and no ads.</strong> Nothing to sign up for, nothing to sell.</li>
-        <li><strong>Settings stay on the phone.</strong> Only the app can read them.</li>
-      </ul>
-    </section>
+  <Section id="promise" title="Our promise">
+    <Points>
+      <li><strong>No internet.</strong> Niko apps don't have the internet permission, so they can't send anything anywhere.</li>
+      <li><strong>Nothing collected.</strong> No personal data, no usage data, no crash reports, no analytics.</li>
+      <li><strong>No accounts and no ads.</strong> Nothing to sign up for, nothing to sell.</li>
+      <li><strong>Settings stay on the phone.</strong> Only the app can read them.</li>
+    </Points>
+  </Section>
 
-    <section aria-labelledby="apps">
-      <h2 id="apps">Each app</h2>
-      <p>Each app's page lists what it keeps on the phone and what every permission is for.</p>
-      <ul class="links">
-        {apps.map((app) => (
-          <li><a href={`/${app.id}/#privacy`}>{app.data.name} privacy</a></li>
-        ))}
-      </ul>
-    </section>
+  <Section id="apps" title="Each app">
+    <p>Each app's page lists what it keeps on the phone and what every permission is for.</p>
+    <ul class="[&>li]:py-2">
+      {apps.map((app) => (
+        <li><a href={`/${app.id}/#privacy`}>{app.data.name} privacy</a></li>
+      ))}
+    </ul>
+  </Section>
 
-    <section aria-labelledby="faq">
-      <h2 id="faq">Questions</h2>
+  <Section id="faq" title="Questions">
+    <Question q="Why do the apps ask for permissions?">
+      <p>Only to do their job on the phone, such as speaking on time with the screen off. No Niko app can read your contacts, location, photos, microphone or camera unless that is the app's job, and its page will say so.</p>
+    </Question>
 
-      <Question q="Why do the apps ask for permissions?">
-        <p>Only to do their job on the phone, such as speaking on time with the screen off. No Niko app can read your contacts, location, photos, microphone or camera unless that is the app's job, and its page will say so.</p>
-      </Question>
+    <Question q="Does the phone's voice send anything?">
+      <p>Apps that speak use the phone's own text-to-speech engine, such as Speech Services by Google. The app gives it only the sentence to say. What the engine does is covered by its maker's privacy policy.</p>
+    </Question>
 
-      <Question q="Does the phone's voice send anything?">
-        <p>Apps that speak use the phone's own text-to-speech engine, such as Speech Services by Google. The app gives it only the sentence to say. What the engine does is covered by its maker's privacy policy.</p>
-      </Question>
+    <Question q="Is a helper PIN safe?">
+      <p>A PIN is kept only as a one-way hash. The numbers themselves are never stored.</p>
+    </Question>
 
-      <Question q="Is a helper PIN safe?">
-        <p>A PIN is kept only as a one-way hash. The numbers themselves are never stored.</p>
-      </Question>
+    <Question q="Are settings included in the phone's backup?">
+      <p>If backup is turned on in the phone's settings, Android may include app settings in your own Google backup and restore them on a new phone. Niko never sees this backup.</p>
+    </Question>
 
-      <Question q="Are settings included in the phone's backup?">
-        <p>If backup is turned on in the phone's settings, Android may include app settings in your own Google backup and restore them on a new phone. Niko never sees this backup.</p>
-      </Question>
+    <Question q="What happens when I uninstall?">
+      <p>The app and its settings are removed from the phone.</p>
+    </Question>
 
-      <Question q="What happens when I uninstall?">
-        <p>The app and its settings are removed from the phone.</p>
-      </Question>
+    <Question q="What if an app ever needs the internet?">
+      <p>This page will say which app, which permission and why, before that version is released.</p>
+    </Question>
 
-      <Question q="What if an app ever needs the internet?">
-        <p>This page will say which app, which permission and why, before that version is released.</p>
-      </Question>
+    <Question q="Does this website track me?">
+      <p>No. It has no cookies, analytics or tracking scripts. It is hosted on GitHub Pages, and GitHub may keep standard server logs such as IP addresses under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub privacy statement</a>. Downloads also come from GitHub.</p>
+    </Question>
 
-      <Question q="Does this website track me?">
-        <p>No. It has no cookies, analytics or tracking scripts. It is hosted on GitHub Pages, and GitHub may keep standard server logs such as IP addresses under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub privacy statement</a>. Downloads also come from GitHub.</p>
-      </Question>
+    <Question q="What do you do with my email?">
+      <p>Only reply to it.</p>
+    </Question>
+  </Section>
 
-      <Question q="What do you do with my email?">
-        <p>Only reply to it.</p>
-      </Question>
-    </section>
-
-    <section aria-labelledby="contact">
-      <h2 id="contact">Questions not answered here</h2>
-      <p>Email <a href="mailto:hello@gopalkhadka.com.np">hello@gopalkhadka.com.np</a>.</p>
-      <p class="status">Last updated 18 October 2026.</p>
-    </section>
-  </main>
+  <Section id="contact" title="Questions not answered here">
+    <p>Email <a href="mailto:hello@gopalkhadka.com.np">hello@gopalkhadka.com.np</a>.</p>
+    <p class="text-sm text-muted">Last updated 18 October 2026.</p>
+  </Section>
 </BaseLayout>

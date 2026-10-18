@@ -3,6 +3,8 @@
 // and "More" links come from frontmatter; the sections in between are the MDX body.
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Button from '../../components/Button.astro';
 import Section from '../../components/Section.astro';
 import Question from '../../components/Question.astro';
 import FeatureList from '../../components/FeatureList.astro';
@@ -30,27 +32,22 @@ const facts = [
 ];
 ---
 <BaseLayout title={name} description={description!} ogDescription={ogDescription}>
-  <header class="hero">
-    <img class="app-icon" src={`/assets/icons/${icon}.svg`} alt="" width="128" height="128">
-    <h1>{name}</h1>
-    <p class="lead">{tagline}</p>
+  <Hero slot="header" title={name} lead={tagline!}>
+    <img slot="image" class="mx-auto size-32 rounded-[32px]" src={`/assets/icons/${icon}.svg`} alt="" width="128" height="128">
     <p>{intro}</p>
-    <p><a class="button" href={download}>Download for Android</a></p>
-    <ul class="facts">
-      {facts.map((fact) => <li>{fact}</li>)}
+    <p class="mt-4"><Button href={download!}>Download for Android</Button></p>
+    <ul class="mt-4 flex flex-wrap justify-center gap-2">
+      {facts.map((fact) => <li class="rounded-full bg-surface px-3.5 py-1.5 text-sm text-muted">{fact}</li>)}
     </ul>
-  </header>
+  </Hero>
 
-  <main id="main">
-    <Content components={{ Section, Question, ul: FeatureList, ol: StepList }} />
+  <Content components={{ Section, Question, ul: FeatureList, ol: StepList }} />
 
-    <section aria-labelledby="more">
-      <h2 id="more">More</h2>
-      <ul class="links">
-        <li><a href={`${source}/releases`}>All releases and what changed</a></li>
-        <li><a href={`${source}/issues`}>Report a problem or ask a question</a></li>
-        <li><a href={source}>Source code</a> (GPLv3)</li>
-      </ul>
-    </section>
-  </main>
+  <Section id="more" title="More">
+    <ul class="[&>li]:py-2">
+      <li><a href={`${source}/releases`}>All releases and what changed</a></li>
+      <li><a href={`${source}/issues`}>Report a problem or ask a question</a></li>
+      <li><a href={source}>Source code</a> (GPLv3)</li>
+    </ul>
+  </Section>
 </BaseLayout>
