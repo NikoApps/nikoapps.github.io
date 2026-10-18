@@ -31,6 +31,9 @@ const apps = defineCollection({
       // the app. Shown on the detail page and in the RSS feed.
       released: z.coerce.date().optional(),
       changes: z.array(z.string()).optional(),
+      // Phone screenshots in public/assets/screenshots/<app>/, in order, each
+      // with a sentence describing what it shows.
+      screenshots: z.array(z.object({ file: z.string(), alt: z.string() })).optional(),
       // Set to true only if the app has the internet permission. Shown in the
       // quick facts on the detail page.
       internet: z.boolean().default(false),

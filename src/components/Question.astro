@@ -1,14 +1,19 @@
 ---
 // One question in a FAQ list. The answer stays folded until it is opened, so
-// pages can stay short. Works without JavaScript.
+// pages can stay short. Each question has an id, so a link to
+// /clock/#does-it-need-the-internet opens it (see the script in BaseLayout).
 // <Question q="Does it need the internet?"> ... </Question>
+import { slug } from '../lib/slug';
+
 interface Props {
   q: string;
+  // Defaults to the question turned into a URL fragment.
+  id?: string;
 }
 
-const { q } = Astro.props;
+const { q, id = slug(q) } = Astro.props;
 ---
-<details class="mb-2.5 rounded-2xl bg-surface">
+<details id={id} class="mb-2.5 scroll-mt-4 rounded-2xl bg-surface">
   <summary class="min-h-16 cursor-pointer rounded-2xl p-4 font-bold">{q}</summary>
   {/* Lists in an answer are plain, not feature cards. */}
   <div class="px-4 pb-4 [&_ul>li]:m-0! [&_ul>li]:bg-transparent! [&_ul>li]:px-0! [&_ul>li]:py-1!"><slot /></div>

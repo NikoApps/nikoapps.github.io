@@ -62,7 +62,10 @@ The brand gradient is for the logo and app icons only, never behind text.
 - One column, `max-w-176` (44rem), 16px side padding. Phones first: check every page at 360px wide with no sideways scrolling. Cards stack and buttons fill the row below the `sm` breakpoint.
 - Buttons are at least 64px tall. Links in the top bar and footer have padding so the tap area is at least 48px.
 - No hover-only or JavaScript-only behaviour. Folded questions use `<details>`.
-- The only JavaScript is the theme switcher, inline in `BaseLayout`. The button stays hidden without JavaScript and the site follows the system theme. It shows a moon or sun with a word, and only the icon on phones, the one icon-only control on the site. Its accessible name is always "Switch to dark theme" or "Switch to light theme".
+- JavaScript only adds to pages that already work without it:
+  - The theme switcher, inline in `BaseLayout`. The button stays hidden without JavaScript and the site follows the system theme.
+  - Links that follow the reader, also in `BaseLayout`. The address bar changes to the section being read or the question just opened, using `replaceState` so the back button isn't filled up. A link to a question opens it.
+  - The Listen button on app pages, which reads a short summary with the browser's own voice. Hidden in browsers that can't speak. It shows a moon or sun with a word, and only the icon on phones, the one icon-only control on the site. Its accessible name is always "Switch to dark theme" or "Switch to light theme".
 
 ## Components
 
@@ -73,7 +76,10 @@ The brand gradient is for the logo and app icons only, never behind text.
 | `Section` | A titled section with an id for linking |
 | `Button` | The main action. `secondary` for a second action beside it |
 | `Points` | A short list where each item starts with a bold label |
-| `Question` | One folded FAQ question and answer |
+| `Question` | One folded FAQ question and answer. Its id comes from the question, so `/clock/#does-it-need-the-internet` opens it |
+| `Listen` | Reads a summary out loud with the browser's voice |
+| `QrCode` | A QR code made at build time, shown from tablet width up, so people on a computer can open a link on their phone |
+| `Screenshots` | Phone screenshots that scroll sideways on phones and form a grid on wider screens. Every image needs alt text saying what it shows |
 | `FeatureList` | Feature cards. MDX bulleted lists use it; inside a `Question` they show as a plain list |
 | `StepList` | Numbered steps. MDX numbered lists use it |
 

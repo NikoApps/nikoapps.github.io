@@ -2,7 +2,7 @@
 
 The Niko website, served by GitHub Pages at https://nikoapps.github.io.
 
-Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com) as a static site. The only client JavaScript is a small inline script for the theme switcher. Colours and assets come from the Niko design system. Every text pairing meets WCAG AAA contrast. Page structure, content rules and components are in [DESIGN.md](DESIGN.md).
+Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com) as a static site. Client JavaScript is limited to small scripts that add to working HTML: the theme switcher, links that follow the section being read, and the Listen button. Colours and assets come from the Niko design system. Every text pairing meets WCAG AAA contrast. Page structure, content rules and components are in [DESIGN.md](DESIGN.md).
 
 This site also backs the `io.github.nikoapps.*` package IDs used by Niko apps, so keep it published.
 
@@ -94,4 +94,4 @@ No.
 
 Each app page should have `privacy` and `accessibility` sections, since the privacy and accessibility pages link to `/<app>/#privacy` and `/<app>/#accessibility`. Keep each section to a line or two and put the detail in `<Question>` blocks.
 
-The page header, download button, quick facts and the "More" links (source, issues, releases) come from the frontmatter. In the body, bulleted lists show as feature cards and numbered lists as install steps. The build fails if a released app is missing a required field. `released` and `changes` describe the current version: they fill the "What's new" section and the RSS feed, so update them with every release. For link previews, add a 1200 by 630 image at `public/assets/og/<icon>.png`; without one the page uses the Niko image.
+The page header, download button, quick facts and the "More" links (source, issues, releases) come from the frontmatter. In the body, bulleted lists show as feature cards and numbered lists as install steps. The build fails if a released app is missing a required field. `released` and `changes` describe the current version: they fill the "What's new" section and the RSS feed, so update them with every release. Screenshots go in `public/assets/screenshots/<name>/`, copied from the app's `fastlane/metadata/android/en-US/images/phoneScreenshots/`; the section only shows when `screenshots` is set. For link previews, add a 1200 by 630 image at `public/assets/og/<icon>.png`; without one the page uses the Niko image.

@@ -1,0 +1,24 @@
+---
+// A QR code drawn at build time, for people reading on a computer who need
+// to open a link on their phone. Always dark on white so cameras read it in
+// either theme. Hidden on phones, where it can't be scanned.
+import QRCode from 'qrcode';
+
+interface Props {
+  url: string;
+  // What the code opens, for screen readers.
+  label: string;
+}
+
+const { url, label } = Astro.props;
+const svg = await QRCode.toString(url, {
+  type: 'svg',
+  margin: 2,
+  errorCorrectionLevel: 'M',
+  color: { dark: '#232838', light: '#FFFFFF' },
+});
+---
+<div class="mx-auto mt-6 flex max-w-md items-center gap-4 rounded-2xl bg-surface p-4 text-start max-md:hidden">
+  <div class="size-36 flex-none rounded-lg bg-white" role="img" aria-label={label} set:html={svg} />
+  <p><slot /></p>
+</div>

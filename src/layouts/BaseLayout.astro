@@ -131,6 +131,53 @@ const footerLinks = [
   <main id="main" class="mx-auto max-w-176 px-4">
     <slot />
   </main>
+  <script is:inline>
+    // Links to a question open it, opening a question puts its link in the
+    // address bar, and the address bar follows the section being read, so any
+    // link copied from it leads back to the same place.
+    (() => {
+      const setHash = (id) => history.replaceState(null, '', id ? `#${id}` : location.pathname);
+      const openTarget = () => {
+        const target = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        const details = target && target.closest('details');
+        if (details) {
+          details.open = true;
+          target.scrollIntoView();
+        }
+      };
+      openTarget();
+      addEventListener('hashchange', openTarget);
+
+      let current = location.hash.slice(1);
+      for (const details of document.querySelectorAll('main details[id]')) {
+        details.addEventListener('toggle', () => {
+          if (!details.open) return;
+          current = details.id;
+          setHash(details.id);
+        });
+      }
+
+      const headings = [...document.querySelectorAll('main section > h2[id]')];
+      if (!headings.length) return;
+      const update = () => {
+        // The section whose heading was passed last, or none above the first one.
+        const passed = headings.filter((h) => h.getBoundingClientRect().top < innerHeight * 0.3);
+        const id = passed.length ? passed[passed.length - 1].id : '';
+        // Keep a question's link while the reader is still in its section.
+        const inQuestion = current && document.getElementById(current)?.closest('section')?.querySelector('h2')?.id === id;
+        if (id !== current && !inQuestion) {
+          current = id;
+          setHash(id);
+        }
+      };
+      let queued = false;
+      addEventListener('scroll', () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => { queued = false; update(); });
+      }, { passive: true });
+    })();
+  </script>
   <footer class="mx-auto max-w-176 px-4 pt-8 pb-12 text-muted">
     <nav aria-label="Footer">
       <ul class="mb-4 flex flex-wrap gap-x-5 gap-y-1">
