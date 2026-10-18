@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Privacy · Niko"
+  description="Niko apps collect nothing. No internet permission, no accounts, no ads, no tracking."
+>
+  <nav class="crumb"><a href="/">Niko</a> / Privacy</nav>
+  <header class="hero">
+    <h1>Privacy</h1>
+    <p class="lead">Niko apps collect nothing about you.</p>
+  </header>
+
+  <main id="main">
+    <section aria-labelledby="short">
+      <h2 id="short">In short</h2>
+      <ul class="promise">
+        <li><strong>No internet.</strong> Niko apps don't have the internet permission, so they can't send anything anywhere.</li>
+        <li><strong>Nothing collected.</strong> No personal data, no usage data, no crash reports, no analytics.</li>
+        <li><strong>No accounts and no ads.</strong> Nothing to sign up for, nothing to sell.</li>
+        <li><strong>Settings stay on the phone.</strong> They are deleted when the app is uninstalled.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="clock">
+      <h2 id="clock">Niko Clock</h2>
+      <p>Niko Clock stores its settings on the phone: voice language, speed and pitch, chime times, quiet hours, shake settings, text size, and the time it last spoke. A helper PIN, if set, is stored only as a one-way hash, never as the numbers themselves.</p>
+      <p>Speech is made by the phone's own text-to-speech engine, such as Speech Services by Google. Niko Clock gives it only the sentence to say, like "It's quarter to four in the afternoon". What the engine does is covered by its maker's privacy policy.</p>
+      <p>What each permission is for:</p>
+      <ul class="links">
+        <li><strong>Alarms</strong> (exact alarms): to say the time on the minute.</li>
+        <li><strong>Run at startup</strong>: to start chimes and shake again after the phone restarts.</li>
+        <li><strong>Foreground service and keep awake</strong>: to listen for a shake and to finish speaking with the screen off.</li>
+        <li><strong>Notifications</strong>: to show that shake listening is on, as Android requires.</li>
+        <li><strong>Vibrate</strong>: for the optional buzz before speaking.</li>
+      </ul>
+      <p>It has no permission for the internet, location, contacts, microphone, camera, storage or phone calls.</p>
+    </section>
+
+    <section aria-labelledby="site">
+      <h2 id="site">This website</h2>
+      <p>This site is hosted on GitHub Pages. It has no cookies, analytics or tracking scripts. GitHub may keep standard server logs, such as IP addresses, under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub privacy statement</a>.</p>
+      <p>Downloads come from GitHub. If you email us, we use your email only to reply.</p>
+    </section>
+
+    <section aria-labelledby="changes">
+      <h2 id="changes">Changes and questions</h2>
+      <p>If a future app ever needs a permission like the internet, this page will say which app, which permission and why, before that version is released.</p>
+      <p>Questions: <a href="mailto:hello@gopalkhadka.com.np">hello@gopalkhadka.com.np</a>. Last updated 18 October 2026.</p>
+    </section>
+  </main>
+</BaseLayout>
