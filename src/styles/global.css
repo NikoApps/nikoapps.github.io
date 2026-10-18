@@ -16,8 +16,10 @@
   --text-sm--line-height: 1.4;
 }
 
+/* Dark theme: follows the phone or computer unless the reader picks a theme
+   with the switcher, which sets data-theme on <html>. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --color-bg: #1A1E2B;
     --color-surface: #232838;
     --color-ink: #FBF8FF;
@@ -26,10 +28,20 @@
     --color-outline: #D9D4EA;
   }
 }
+:root[data-theme="dark"] {
+  --color-bg: #1A1E2B;
+  --color-surface: #232838;
+  --color-ink: #FBF8FF;
+  --color-muted: #D9D4EA;
+  --color-link: #F7B9DE;
+  --color-outline: #D9D4EA;
+}
 
 /* Markdown in app pages can't carry classes, so plain elements get defaults here. */
 @layer base {
   html { @apply scheme-light-dark text-[125%]; }
+  html[data-theme="light"] { @apply scheme-light; }
+  html[data-theme="dark"] { @apply scheme-dark; }
   body { @apply bg-bg font-sans leading-normal text-ink; }
   p { @apply my-2; }
   a { @apply text-link underline underline-offset-3; }

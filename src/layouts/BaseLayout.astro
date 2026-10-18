@@ -2,16 +2,34 @@
 // Shared page shell: head, skip link, top bar, main and footer. Pages put a
 // <Hero slot="header"> first and their sections in the default slot.
 import '../styles/global.css';
+import { organization } from '../lib/seo';
 
 interface Props {
   title: string;
   description: string;
   ogDescription?: string;
+  // Link preview image, 1200 by 630, from public/.
+  ogImage?: string;
+  // Structured data for search engines, added as JSON-LD.
+  jsonLd?: object;
+  noindex?: boolean;
 }
 
-const { title, description, ogDescription = description } = Astro.props;
-const ogImage = new URL('/assets/icon-192.png', Astro.site).href;
+const {
+  title,
+  description,
+  ogDescription = description,
+  ogImage = '/assets/og/niko.png',
+  jsonLd,
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const imageUrl = new URL(ogImage, Astro.site).href;
 const path = Astro.url.pathname;
+// Every page says who publishes it. Pages can add more, such as an app.
+const schema = [organization, ...(jsonLd ? [jsonLd] : [])];
+// Keep "</script>" inside a string from closing the tag early.
+const schemaJson = JSON.stringify({ '@context': 'https://schema.org', '@graph': schema }).replaceAll('<', '\\u003c');
 
 const nav = [
   { href: '/#apps', label: 'Apps' },
@@ -33,22 +51,43 @@ const footerLinks = [
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script is:inline>
+    // Apply a saved theme before the page paints, so it doesn't flash.
+    try {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+    } catch {}
+  </script>
   <title>{title}</title>
   <meta name="description" content={description}>
+  <link rel="canonical" href={canonical}>
+  {noindex && <meta name="robots" content="noindex">}
+  <meta name="theme-color" content="#FBF8FF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1A1E2B" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/icon-192.png">
+  <link rel="sitemap" href="/sitemap-index.xml">
+  <link rel="alternate" type="application/rss+xml" title="Niko app releases" href="/rss.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Niko">
+  <meta property="og:url" content={canonical}>
   <meta property="og:title" content={title}>
   <meta property="og:description" content={ogDescription}>
-  <meta property="og:image" content={ogImage}>
+  <meta property="og:image" content={imageUrl}>
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json" set:html={schemaJson} />
 </head>
 <body>
   <a class="absolute -left-[999px] bg-accent px-4 py-3 text-on-accent focus:top-4 focus:left-4" href="#main">Skip to content</a>
-  <div class="mx-auto flex max-w-176 flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 pt-3">
-    <a class="inline-flex min-h-12 items-center gap-2.5 text-xl font-bold text-ink no-underline" href="/">
+  <div class="mx-auto flex max-w-176 flex-wrap items-center gap-x-2 gap-y-1 px-4 pt-3">
+    <a class="order-1 mr-auto inline-flex min-h-12 items-center gap-2.5 text-xl font-bold text-ink no-underline" href="/">
       <img class="size-10" src="/assets/niko-mark.svg" alt="" width="40" height="40">Niko
     </a>
-    <nav aria-label="Main">
-      <ul class="flex gap-1">
+    <nav aria-label="Main" class="order-3 w-full sm:order-2 sm:w-auto">
+      <ul class="-ml-3 flex gap-1 sm:ml-0">
         {nav.map((item) => (
           <li>
             <a class="inline-block min-h-12 rounded-xl px-3 py-2.5 aria-[current=page]:font-bold aria-[current=page]:decoration-3" href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
@@ -56,7 +95,30 @@ const footerLinks = [
         ))}
       </ul>
     </nav>
+    {/* Hidden until the script below runs. Without JavaScript the site follows the system theme. */}
+    <button id="theme" type="button" hidden class="order-2 min-h-12 cursor-pointer rounded-xl border-2 border-outline px-3 text-link sm:order-3">
+      <span class="sr-only">Switch to </span><span id="theme-label">Dark</span> theme
+    </button>
   </div>
+  <script is:inline>
+    (() => {
+      const root = document.documentElement;
+      const button = document.getElementById('theme');
+      const label = document.getElementById('theme-label');
+      const systemDark = matchMedia('(prefers-color-scheme: dark)');
+      const current = () => root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
+      const show = () => { label.textContent = current() === 'dark' ? 'Light' : 'Dark'; };
+      button.addEventListener('click', () => {
+        const next = current() === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch {}
+        show();
+      });
+      systemDark.addEventListener('change', show);
+      show();
+      button.hidden = false;
+    })();
+  </script>
   <slot name="header" />
   <main id="main" class="mx-auto max-w-176 px-4">
     <slot />
@@ -64,7 +126,7 @@ const footerLinks = [
   <footer class="mx-auto max-w-176 px-4 pt-8 pb-12 text-muted">
     <nav aria-label="Footer">
       <ul class="mb-4 flex flex-wrap gap-x-5 gap-y-1">
-        {footerLinks.map((item) => <li><a class="inline-block py-2" href={item.href}>{item.label}</a></li>)}
+        {footerLinks.map((item) => <li><a class="inline-block py-2.5" href={item.href}>{item.label}</a></li>)}
       </ul>
     </nav>
     <p>Free Android apps, made in Nepal. Contact: <a href="mailto:hello@gopalkhadka.com.np">hello@gopalkhadka.com.np</a></p>

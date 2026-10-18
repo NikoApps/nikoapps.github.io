@@ -27,6 +27,10 @@ const apps = defineCollection({
       minAndroid: z.string().optional(),
       download: z.url().optional(),
       source: z.url().optional(),
+      // Release date of this version, and what changed in it for people using
+      // the app. Shown on the detail page and in the RSS feed.
+      released: z.coerce.date().optional(),
+      changes: z.array(z.string()).optional(),
       // Set to true only if the app has the internet permission. Shown in the
       // quick facts on the detail page.
       internet: z.boolean().default(false),
@@ -34,8 +38,8 @@ const apps = defineCollection({
     .refine(
       (app) =>
         app.status === 'planned' ||
-        (app.tagline && app.intro && app.description && app.version && app.minAndroid && app.download && app.source),
-      { message: 'Released and test apps need tagline, intro, description, version, minAndroid, download and source.' },
+        (app.tagline && app.intro && app.description && app.version && app.minAndroid && app.download && app.source && app.released),
+      { message: 'Released and test apps need tagline, intro, description, version, minAndroid, download, source and released.' },
     ),
 });
 

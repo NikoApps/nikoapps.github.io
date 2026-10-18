@@ -35,7 +35,7 @@ Tailwind CSS v4 through `@tailwindcss/vite`. Style with utility classes in compo
 
 ### Colour
 
-Tokens in `@theme`, matching the Niko design system themes. Every text pairing meets WCAG AAA (7:1). The site follows the system light or dark theme.
+Tokens in `@theme`, matching the Niko design system themes. Every text pairing meets WCAG AAA (7:1). The site follows the system light or dark theme until the reader picks one with the switcher in the top bar, which sets `data-theme` on `<html>` and remembers it in the browser.
 
 | Token | Light | Dark | Use |
 | --- | --- | --- | --- |
@@ -61,7 +61,8 @@ The brand gradient is for the logo and app icons only, never behind text.
 
 - One column, `max-w-176` (44rem), 16px side padding.
 - Buttons are at least 64px tall. Links in the top bar and footer have padding so the tap area is at least 48px.
-- No hover-only or JavaScript-only behaviour. The site ships no client JavaScript. Folded questions use `<details>`.
+- No hover-only or JavaScript-only behaviour. Folded questions use `<details>`.
+- The only JavaScript is the theme switcher, inline in `BaseLayout`. The button stays hidden without JavaScript and the site follows the system theme.
 
 ## Components
 
@@ -75,6 +76,13 @@ The brand gradient is for the logo and app icons only, never behind text.
 | `Question` | One folded FAQ question and answer |
 | `FeatureList` | Feature cards. MDX bulleted lists use it; inside a `Question` they show as a plain list |
 | `StepList` | Numbered steps. MDX numbered lists use it |
+
+## Search and sharing
+
+- Each page has a unique title and description, a canonical URL, Open Graph and Twitter card tags, and a 1200 by 630 preview image from `public/assets/og/`.
+- JSON-LD from `src/lib/seo.ts`: the organization on every page, the website on the home page, and a `MobileApplication` on each app page.
+- `/sitemap-index.xml`, `/robots.txt` (everything allowed, AI crawlers included), `/rss.xml` for releases, and `/llms.txt` with a plain summary for AI assistants. All are built from the apps collection, so adding an app updates them.
+- Words in other languages carry a `lang` attribute, such as `<span lang="ne">नेपाली</span>`, so screen readers and search engines read them correctly.
 
 ## Accessibility checks before merging
 

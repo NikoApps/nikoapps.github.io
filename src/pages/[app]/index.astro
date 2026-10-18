@@ -1,6 +1,7 @@
 ---
 // Detail page template for every app that has a release. The hero, quick facts
 // and "More" links come from frontmatter; the sections in between are the MDX body.
+import { existsSync } from 'node:fs';
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/Hero.astro';
@@ -10,6 +11,7 @@ import Question from '../../components/Question.astro';
 import FeatureList from '../../components/FeatureList.astro';
 import StepList from '../../components/StepList.astro';
 import { getApps, hasPage, type App } from '../../lib/apps';
+import { appSchema } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const apps = await getApps();
@@ -21,17 +23,27 @@ interface Props {
 }
 
 const { app } = Astro.props;
-const { name, icon, tagline, intro, description, ogDescription, version, minAndroid, download, source, status, internet } = app.data;
+const { name, icon, tagline, intro, description, ogDescription, version, minAndroid, download, source, status, internet, released, changes } = app.data;
 const { Content } = await render(app);
 
 const facts = [
   'Free, no ads',
-  internet ? 'Uses the internet' : 'Works offline, no internet permission',
+  ...(internet ? ['Uses the internet'] : ['Works offline', 'No internet permission']),
   `Android ${minAndroid} or newer`,
   status === 'test' ? `Version ${version}, test release` : `Version ${version}`,
 ];
+
+// Link preview image in public/assets/og/<icon>.png, or the Niko one if the app has none yet.
+const ogImage = existsSync(`public/assets/og/${icon}.png`) ? `/assets/og/${icon}.png` : undefined;
+const releasedText = released!.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 ---
-<BaseLayout title={name} description={description!} ogDescription={ogDescription}>
+<BaseLayout
+  title={`${name} · ${tagline!.replace(/\.$/, '')}`}
+  description={description!}
+  ogDescription={ogDescription}
+  ogImage={ogImage}
+  jsonLd={appSchema(app)}
+>
   <Hero slot="header" title={name} lead={tagline!}>
     <img slot="image" class="mx-auto size-32 rounded-[32px]" src={`/assets/icons/${icon}.svg`} alt="" width="128" height="128">
     <p>{intro}</p>
@@ -42,6 +54,15 @@ const facts = [
   </Hero>
 
   <Content components={{ Section, Question, ul: FeatureList, ol: StepList }} />
+
+  {changes && (
+    <Section id="new" title={`What's new in ${version}`}>
+      <p class="text-sm text-muted">Released {releasedText}.</p>
+      <ul class="list-disc pl-6 [&>li]:py-1">
+        {changes.map((change) => <li>{change}</li>)}
+      </ul>
+    </Section>
+  )}
 
   <Section id="more" title="More">
     <ul class="[&>li]:py-2">

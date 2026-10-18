@@ -5,14 +5,16 @@ import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
 import Points from '../components/Points.astro';
 import { getApps, hasPage, statusLabel } from '../lib/apps';
+import { website } from '../lib/seo';
 
 const apps = await getApps();
 const available = apps.filter(hasPage);
 const planned = apps.filter((app) => !hasPage(app));
 ---
 <BaseLayout
-  title="Niko"
+  title="Niko · Simple, free Android apps anyone can use"
   description="Simple, free Android apps that anyone can use. No ads, no tracking, built for accessibility."
+  jsonLd={website}
 >
   <Hero slot="header" title="Niko" lead="Simple, free Android apps that anyone can use.">
     <img slot="image" class="mx-auto size-40" src="/assets/niko-mark.svg" alt="" width="160" height="160">
