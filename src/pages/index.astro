@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getApps, hasPage, statusLabel } from '../lib/apps';
+
+const apps = await getApps();
+---
+<BaseLayout
+  title="Niko"
+  description="Simple, free Android apps that anyone can use. No ads, no tracking, built for accessibility."
+>
+  <header class="hero">
+    <img src="/assets/niko-mark.svg" alt="" width="160" height="160">
+    <h1>Niko</h1>
+    <p class="lead">Simple, free Android apps that anyone can use.</p>
+    <p>For people mainstream apps leave out: people who can't read, older people, and disabled people. Each app does one job. No ads, no tracking, no paywalls. They work offline and are accessible from the start.</p>
+  </header>
+
+  <main id="main">
+    <section aria-labelledby="apps">
+      <h2 id="apps">Apps</h2>
+      <ul class="apps">
+        {apps.map((app) => {
+          const page = `/${app.id}/`;
+          return (
+            <li>
+              <img src={`/assets/icons/${app.data.icon}.svg`} alt="" width="72" height="72" />
+              <div>
+                <h3>{hasPage(app) ? <a href={page}>{app.data.name}</a> : app.data.name}</h3>
+                <p>{app.data.summary}</p>
+                <p class="status">
+                  {statusLabel[app.data.status]}
+                  {hasPage(app) && <> · <a href={page}>Details</a> · <a href={app.data.download}>Download</a></>}
+                </p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <p>Apps are released on GitHub first. Install the APK directly, or add the repo to <a href="https://github.com/ImranR98/Obtainium">Obtainium</a> to get updates.</p>
+    </section>
+
+    <section aria-labelledby="promise">
+      <h2 id="promise">Our promise</h2>
+      <ul class="promise">
+        <li><strong>Free forever.</strong> No ads, no paid features.</li>
+        <li><strong>Private.</strong> No tracking. No internet permission unless an app truly needs it.</li>
+        <li><strong>Usable without reading.</strong> Apps speak in the phone's own voice and language.</li>
+        <li><strong>Built to last.</strong> Designed to keep working through battery savers and Android updates.</li>
+        <li><strong>Open source.</strong> Every app is published under GPLv3 when it is released.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="help">
+      <h2 id="help">Help out</h2>
+      <p>Test an app with someone who would use it, or help translate it into your language.</p>
+      <p><a class="button" href="https://github.com/NikoApps">Niko on GitHub</a></p>
+    </section>
+  </main>
+</BaseLayout>

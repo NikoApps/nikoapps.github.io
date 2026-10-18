@@ -1,0 +1,14 @@
+---
+// A titled section on an app page. Use it in app MDX files:
+// <Section id="install" title="Install"> ... </Section>
+interface Props {
+  id: string;
+  title: string;
+}
+
+const { id, title } = Astro.props;
+---
+<section aria-labelledby={id}>
+  <h2 id={id}>{title}</h2>
+  <slot />
+</section>
