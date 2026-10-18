@@ -2,7 +2,7 @@
 
 The Niko website, served by GitHub Pages at https://nikoapps.github.io.
 
-Built with [Astro](https://astro.build) as a static site with no client JavaScript. Colours and assets come from the Niko design system. Every text pairing meets WCAG AAA contrast.
+Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com) as a static site with no client JavaScript. Colours and assets come from the Niko design system. Every text pairing meets WCAG AAA contrast. Page structure, content rules and components are in [DESIGN.md](DESIGN.md).
 
 This site also backs the `io.github.nikoapps.*` package IDs used by Niko apps, so keep it published.
 
@@ -22,12 +22,12 @@ Every push to `main` builds the site and deploys it to GitHub Pages through `.gi
 
 ## Layout
 
-- `src/styles/global.css`: all styling, plain CSS.
+- `src/styles/global.css`: Tailwind theme tokens and base styles for Markdown. Everything else is styled with utility classes.
 - `src/layouts/BaseLayout.astro`: head, skip link, top bar and footer shared by every page.
 - `src/pages/index.astro`: the home page. Apps you can try and planned apps come from the apps collection.
 - `src/pages/[app]/index.astro`: the template for app detail pages.
 - `src/pages/install.astro`, `privacy.astro`, `accessibility.astro`, `about.astro`: pages about Niko as a whole. App-specific details live on each app's page, and these pages link to them.
-- `src/components/Question.astro`: a folded question and answer, used for the FAQ on every page.
+- `src/components/`: shared pieces such as `Hero`, `Section`, `Button` and `Question`. See [DESIGN.md](DESIGN.md).
 - `src/content/apps/`: one file per app. The schema is in `src/content.config.ts`.
 - `public/`: files copied as is, such as the favicon and app icons.
 
