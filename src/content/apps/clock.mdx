@@ -3,22 +3,23 @@ name: Niko Clock
 order: 1
 status: test
 icon: clock
-summary: Speaks the time out loud when you tap the clock, shake the phone, or every hour. Speaks English, Nepali, Hindi, Spanish and Portuguese.
+summary: Speaks the time out loud when you tap the clock, shake the phone, or every hour. Speaks nine languages, including English, Nepali and Hindi.
 tagline: Hear the time out loud.
 intro: "For people who can't easily read a screen: people who can't read, older people and people with low vision. Tap the clock, shake the phone, or let it say the time every hour."
 description: A talking clock for people who can't easily read a screen. Tap, shake or set chimes to hear the time. Free, no ads, works offline.
 ogDescription: A talking clock for people who can't easily read a screen. Free, no ads, works offline.
-version: 0.3.0
+version: 0.4.0
 minAndroid: "8.0"
 download: https://github.com/NikoApps/Clock/releases/latest/download/niko-clock.apk
 source: https://github.com/NikoApps/Clock
-released: 2026-10-18
+released: 2026-10-22
 changes:
-  - "A short setup for helpers on first open: voice, chimes, shake, PIN and phone settings."
-  - The line under the clock warns when a phone setting may stop it speaking.
-  - Settings show when the clock last spoke by itself, and how to keep it running on Xiaomi, Samsung and other phones.
-  - New date, and time and date widgets.
-  - Settings name the voice in use.
+  - "Day clock mode: the day, the part of the day, the date and the time in large words."
+  - The Nepali (Bikram Sambat) date under the date, said in English and Nepali.
+  - A short note from a helper, shown on the clock and read after the date.
+  - A good morning message with the date at 6, 7 or 8.
+  - The day clock can stay on the lock screen while the phone charges.
+  - Says the time in French, Indonesian, Bengali and Urdu.
 screenshots:
   - file: 1.webp
     alt: The main screen in light theme, with the time and date in large print and a big yellow Speak time button.
@@ -36,6 +37,9 @@ screenshots:
 - **Shake to hear it.** Works with the screen off and the phone locked. Shake again for the date.
 - **Chimes.** Says the time by itself every hour, half hour or quarter hour, with its own volume.
 - **Quiet at night.** No chimes during quiet hours or Do Not Disturb. Asking still works.
+- **Day clock.** Turns the screen into a large "Tuesday morning" clock with the full date, for people who lose track of the day. Dark at night, and can stay on the lock screen while charging.
+- **Nepali date and a note.** Can show the Bikram Sambat date and a short note from a helper, and read both after the date.
+- **Good morning.** Can say good morning and the date at 6, 7 or 8.
 - **Tiles and widgets.** Hear the time or the date from quick settings, or from a home screen widget.
 - **Speaks like a person.** "It's quarter to four in the afternoon", not "fifteen forty-five".
 - **Set up by a helper.** A short setup on first open. Settings can be locked with a PIN.
@@ -45,7 +49,7 @@ screenshots:
 
 <Section id="languages" title="Languages">
 
-**Speaks:** English, <span lang="ne">नेपाली</span>, <span lang="hi">हिन्दी</span>, <span lang="es">Español</span>, <span lang="pt">Português</span>.
+**Speaks:** English, <span lang="ne">नेपाली</span>, <span lang="hi">हिन्दी</span>, <span lang="bn">বাংলা</span>, <span lang="ur" dir="rtl">اردو</span>, <span lang="es">Español</span>, <span lang="pt">Português</span>, <span lang="fr">Français</span>, <span lang="id">Bahasa Indonesia</span>.
 
 **Screen:** English, <span lang="ne">नेपाली</span>, <span lang="hi">हिन्दी</span>, <span lang="bn">বাংলা</span>, <span lang="ur" dir="rtl">اردو</span>, <span lang="ar" dir="rtl">العربية</span>, <span lang="es">Español</span>, <span lang="pt">Português</span>, <span lang="fr">Français</span>, <span lang="id">Bahasa Indonesia</span>.
 
@@ -67,13 +71,13 @@ No internet permission, nothing collected, no ads, no account. [How Niko handles
 
 <Question q="What does it keep on the phone?">
 
-Its settings: voice language, speed and pitch, chime times, quiet hours, shake settings, text size, the time it last spoke, and a short note if a helper writes one. A helper PIN is kept only as a one-way hash, never as the numbers themselves.
+Its settings: voice language, speed and pitch, chime times, quiet hours, shake settings, text size, day clock and morning greeting choices, the time it last spoke, and a short note if a helper writes one. A helper PIN is kept only as a one-way hash, never as the numbers themselves.
 
 </Question>
 
 <Question q="What is each permission for?">
 
-- **Alarms:** to say the time on the minute.
+- **Alarms:** to say the time on the minute, and good morning at the time a helper picks.
 - **Run at startup:** to start chimes and shake again after the phone restarts.
 - **Foreground service and keep awake:** to listen for a shake and to finish speaking with the screen off.
 - **Notifications:** to show that shake listening is on, as Android requires.
@@ -93,7 +97,7 @@ Niko Clock doesn't. The voice comes from the phone's own text-to-speech engine, 
 
 <Section id="accessibility" title="Accessibility">
 
-Version 0.3.0 has been tried by hand on a Xiaomi phone and on the Android emulator. Full testing comes before version 1.0. [How Niko apps are built and tested](/accessibility/).
+Version 0.4.0 has been tried by hand on a Xiaomi phone and on the Android emulator. Full testing comes before version 1.0. [How Niko apps are built and tested](/accessibility/).
 
 <Question q="What hasn't been tested yet?">
 
@@ -101,7 +105,7 @@ Version 0.3.0 has been tried by hand on a Xiaomi phone and on the Android emulat
 - 200% font size on every screen and widget size.
 - An Accessibility Scanner pass.
 - Everyday use by people who can't read, blind people and older people.
-- A native speaker review of the Hindi, Spanish and Portuguese phrases.
+- A native speaker review of the phrases in every language except English and Nepali. Bengali and Urdu need it most: their numbers are written by hand.
 
 </Question>
 
