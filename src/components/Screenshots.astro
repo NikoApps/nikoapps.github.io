@@ -1,13 +1,29 @@
 ---
 // A row of phone screenshots. Scrolls sideways on phones and wraps into a
-// grid on wider screens. Images live in public/assets/screenshots/<app>/,
-// 540 by 1196 WebP made from the app's fastlane phone screenshots.
+// grid on wider screens. Images live in public/assets/screenshots/<app>/ as
+// 540 wide WebP with the status bar cropped off. Heights differ between
+// phones, so each image's size is read from the file.
+import { readFileSync } from 'node:fs';
+
 interface Props {
   app: string;
   shots: { file: string; alt: string }[];
 }
 
 const { app, shots } = Astro.props;
+
+// Width and height from a WebP header: lossy (VP8), lossless (VP8L) or extended (VP8X).
+function webpSize(path: string): { width: number; height: number } {
+  const b = readFileSync(path);
+  const chunk = b.toString('ascii', 12, 16);
+  if (chunk === 'VP8 ') return { width: b.readUInt16LE(26) & 0x3fff, height: b.readUInt16LE(28) & 0x3fff };
+  if (chunk === 'VP8L') {
+    const bits = b.readUInt32LE(21);
+    return { width: (bits & 0x3fff) + 1, height: ((bits >>> 14) & 0x3fff) + 1 };
+  }
+  if (chunk === 'VP8X') return { width: b.readUIntLE(24, 3) + 1, height: b.readUIntLE(27, 3) + 1 };
+  throw new Error(`${path} is not a WebP image`);
+}
 ---
 <div
   class="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-4 sm:overflow-visible sm:px-0"
@@ -15,15 +31,19 @@ const { app, shots } = Astro.props;
   aria-label="Screenshots"
   tabindex="0"
 >
-  {shots.map((shot) => (
-    <img
-      class="h-auto w-56 flex-none snap-start rounded-2xl border-2 border-outline/20 sm:w-full"
-      src={`/assets/screenshots/${app}/${shot.file}`}
-      alt={shot.alt}
-      width="540"
-      height="1196"
-      loading="lazy"
-      decoding="async"
-    />
-  ))}
+  {shots.map((shot) => {
+    const src = `/assets/screenshots/${app}/${shot.file}`;
+    const { width, height } = webpSize(`public${src}`);
+    return (
+      <img
+        class="h-auto w-56 flex-none snap-start rounded-2xl border-2 border-outline/20 sm:w-full"
+        src={src}
+        alt={shot.alt}
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  })}
 </div>

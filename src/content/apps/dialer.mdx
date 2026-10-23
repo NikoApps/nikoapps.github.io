@@ -1,0 +1,178 @@
+---
+name: Niko Dialer
+order: 2
+status: test
+icon: dialer
+summary: Tap a family member's photo to call them. The phone says their name first, so a wrong tap can be stopped.
+tagline: Tap a face to call.
+intro: "For people who can't easily read a screen: people who can't read, older people and people with low vision. Tap a face, hear the name, and the call starts. A family member or helper sets it up once."
+description: A photo dialer for people who can't easily read a screen. Tap a face to call, hear a recorded name when family call, and keep unknown numbers quiet. Free, no ads, works offline.
+ogDescription: A photo dialer for people who can't easily read a screen. Free, no ads, works offline.
+version: 0.1.0
+minAndroid: "8.0"
+download: https://github.com/NikoApps/Dialer/releases/latest/download/niko-dialer.apk
+source: https://github.com/NikoApps/Dialer
+released: 2026-10-23
+changes:
+  - First test release.
+  - Tap a face to call. The phone says the name, then waits 3 seconds with a big Stop button.
+  - Up to 6 people with photos, set up by a helper behind a PIN.
+  - A recorded name that plays instead of the ringtone when that person calls.
+  - An option to only ring for people saved in the phone.
+screenshots:
+  - file: 1.webp
+    alt: The main screen in light theme with four people, Mum, Dad, Sita and Ram, each a big coloured tile with a letter and the name under it. The line at the bottom says Tap a face to call.
+  - file: 2.webp
+    alt: The main screen in dark theme with six people in three rows, each tile showing a letter and the name.
+  - file: 3.webp
+    alt: The calling screen in light theme, with a big M for Mum, the words Calling Mum and a large green Stop button.
+  - file: 4.webp
+    alt: The main screen with six people at 200% font size. The names are bigger and the screen still fits without scrolling.
+  - file: 5.webp
+    alt: Settings in dark theme, showing the theme, Only ring for saved contacts with its switch off, and voice options.
+---
+
+<Section id="features" title="What it does">
+
+- **Tap a face to call.** Up to 6 people, each a big photo with the name under it. Nothing to read or type.
+- **Says the name first.** "Calling Mum" in the phone's voice, then 3 seconds with a big Stop button in case of a wrong tap. A helper can set it to call straight away or to ask first.
+- **Faces stay in place.** Each person keeps their place until a helper moves them. The screen never scrolls.
+- **Known voices when family call.** A helper records "Mum is calling". It plays instead of the ringtone when Mum calls.
+- **Only ring for saved contacts.** Optional. Calls from numbers not saved in the phone don't ring, but still show as missed calls. Needs Android 10 or newer.
+- **Set up by a helper.** Add people from the phone's contacts or type a name and number. Take a photo, choose one, or use the contact's photo. Settings can be locked with a PIN.
+- **Warns before something stops working.** A line under the faces says when calls, recorded names or silencing may fail, and settings show how to fix it.
+
+</Section>
+
+<Section id="languages" title="Languages">
+
+**Speaks and shows:** English, <span lang="ne">नेपाली</span>, <span lang="hi">हिन्दी</span>, <span lang="bn">বাংলা</span>, <span lang="ur" dir="rtl">اردو</span>, <span lang="ar" dir="rtl">العربية</span>, <span lang="es">Español</span>, <span lang="pt">Português</span>, <span lang="fr">Français</span>, <span lang="id">Bahasa Indonesia</span>.
+
+Names are said the way the helper types them, in any script.
+
+</Section>
+
+<Section id="install" title="Install">
+
+1. On the phone, tap **Download for Android** at the top of this page.
+2. Open the file. If the phone asks, allow installing apps from this source.
+3. Open Niko Dialer and follow the short setup to add the first people.
+
+For automatic updates and keeping it working on Xiaomi, Samsung and similar phones, see [install help](/install/).
+
+</Section>
+
+<Section id="privacy" title="Privacy">
+
+No internet permission, nothing collected, no ads, no account. People, photos and recordings stay on the phone. [How Niko handles privacy](/privacy/).
+
+<Question q="What does it keep on the phone?">
+
+For each person: the name, number, place on the screen and a link to their phone contact, a square copy of their photo, and their recorded name if there is one. Also its settings, and the time of the last silenced call, not the number. A helper PIN is kept only as a one-way hash, never as the numbers themselves.
+
+A person typed in by hand is also saved in the phone's contacts, on the phone, not the SIM. A recorded name is copied into the phone's ringtone list, so the phone can play it. That copy stays on the phone if Niko Dialer is uninstalled.
+
+</Question>
+
+<Question q="What is each permission for?">
+
+- **Phone calls:** to start the call when a face is tapped.
+- **Contacts:** to save a typed person in the phone's contacts, and to set their recorded name as their ringtone.
+- **Microphone:** to record a name, only while a helper records it.
+- **Storage, on Android 8 and 9 only:** to put a recorded name in the phone's ringtones.
+- **Silencing calls, on Android 10 and newer, optional:** to keep calls from unsaved numbers quiet. The phone asks for this in its own window. Calls are silenced, never rejected, and still show in the call log.
+
+It has no permission for the internet, location, camera or call history. Photos come from the phone's camera app and photo picker, which need no permission.
+
+</Question>
+
+<Question q="Does it see who calls?">
+
+Only when Only ring for saved contacts is on, and only for numbers not saved in the phone. Android doesn't show it calls from saved contacts. It keeps the time of the last silenced call and nothing else.
+
+</Question>
+
+<Question q="Is it in the phone's backup?">
+
+No. Niko Dialer leaves its people, photos and recordings out of Google backup. Moving to a new phone by cable or a phone-to-phone transfer is allowed, but hasn't been tested yet.
+
+</Question>
+
+<Question q="Does the voice send anything anywhere?">
+
+Niko Dialer doesn't. The voice comes from the phone's own text-to-speech engine, such as Speech Services by Google. Niko Dialer only gives it the sentence to say. What the engine does is covered by its maker's privacy policy.
+
+</Question>
+
+</Section>
+
+<Section id="accessibility" title="Accessibility">
+
+Version 0.1.0 has been tried by hand on a Samsung Galaxy A01 and an Oppo A5 2020. Neither phone had a SIM card, so no call has gone through yet. Full testing comes before version 1.0. [How Niko apps are built and tested](/accessibility/).
+
+<Question q="What hasn't been tested yet?">
+
+- A real call: the call connecting, a recorded name playing when that person calls, and silencing calls from unsaved numbers.
+- A full TalkBack pass by ear of every screen, including setup and the PIN screens.
+- 200% font size on every screen. The main screen has been checked with 1, 2, 4 and 6 people.
+- An Accessibility Scanner pass.
+- Everyday use by people who can't read, blind people and older people.
+- A native speaker review of the screens and the spoken sentence in every language.
+
+</Question>
+
+<Question q="Are there known problems?">
+
+- At 200% font size, the 0 and delete buttons on the PIN pad are below the edge of the screen. The screen scrolls, but nothing shows there is more.
+- The PIN pad's delete button and the information buttons in settings show only an icon, and the information buttons are smaller than they should be. Each has a TalkBack label.
+- With 6 people at 200% font size, the faces get smaller to make room for the bigger names.
+
+</Question>
+
+</Section>
+
+<Section id="questions" title="Questions">
+
+<Question q="Can it call an emergency number?">
+
+Not directly. Android doesn't let apps call emergency numbers. If a face has an emergency number, tapping it opens the phone's dialer with the number ready, and the call is made from there.
+
+</Question>
+
+<Question q="It says calls may stop working later. What do I do?">
+
+The phone can take back Niko Dialer's permissions if it isn't opened for a while. Open Settings in Niko Dialer and follow the link to turn off "Pause app activity if unused". On Samsung phones the same setting is called "Remove permissions if app is unused".
+
+</Question>
+
+<Question q="Will we miss a call from a hospital or clinic?">
+
+With Only ring for saved contacts on, any number not saved in the phone won't ring, including clinics and hidden numbers. The call still shows as a missed call, and Niko Dialer's settings show when the last silenced call came in. The phone decides who counts as saved, using all its contacts, not just the people in Niko Dialer.
+
+</Question>
+
+<Question q="Only ring for saved contacts won't turn on.">
+
+It needs Android 10 or newer. On Android 8 and 9 the setting stays off and says so, and everything else works. On newer phones, an app installed from a file can be blocked from silencing calls. Niko Dialer's settings show the steps to allow it.
+
+</Question>
+
+<Question q="What happens during the call?">
+
+The phone's own call screen takes over. Niko Dialer doesn't control it. On most phones it comes back to the faces when the call ends.
+
+</Question>
+
+<Question q="Does it replace the phone's own phone app?">
+
+No. Answering calls, the keypad and call history stay in the phone's own app.
+
+</Question>
+
+<Question q="Does it need the internet?">
+
+No. It has no internet permission and works fully offline.
+
+</Question>
+
+</Section>
