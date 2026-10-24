@@ -28,7 +28,7 @@ Every push to `main` builds the site and deploys it to GitHub Pages through `.gi
 - `src/pages/[app]/index.astro`: the template for app detail pages.
 - `src/pages/install.astro`, `privacy.astro`, `accessibility.astro`, `about.astro`: pages about Niko as a whole. App-specific details live on each app's page, and these pages link to them.
 - `src/lib/seo.ts`: structured data (JSON-LD) for the organization, site and apps.
-- `src/pages/rss.xml.ts`, `llms.txt.ts`, `robots.txt.ts`: the release feed, the summary for AI assistants and the crawler rules, built from the apps collection. The sitemap comes from `@astrojs/sitemap`.
+- `src/pages/rss.xml.ts`, `apps.json.ts`, `llms.txt.ts`, `robots.txt.ts`: the release feed, every app's facts as JSON for other sites (the portfolio reads it daily), the summary for AI assistants and the crawler rules, built from the apps collection. The sitemap comes from `@astrojs/sitemap`.
 - `src/components/`: shared pieces such as `Hero`, `Section`, `Button` and `Question`. See [DESIGN.md](DESIGN.md).
 - `src/content/apps/`: one file per app. The schema is in `src/content.config.ts`.
 - `public/`: files copied as is, such as the favicon and app icons.
